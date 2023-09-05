@@ -2,9 +2,11 @@
 import { Component } from './types';
 
 export interface Note {
-  id: number;
+  id: string;
   title: string;
   body: string;
+  dateCreated: string;
+  dateUpdated: string;
 }
 
 export interface Notes {
@@ -22,7 +24,7 @@ export interface NoteHeaderProps {
 
 export interface NoteItemProps {
   note: Note;
-  onRemove: (id: number) => void;
+  onRemove: (id: string) => void;
 }
 
 export interface NotesListProps {
