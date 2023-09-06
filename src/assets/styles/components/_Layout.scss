@@ -11,24 +11,21 @@
   min-width: 320px;
   height: 100%;
   min-height: 100vh;
+  background: #dfe0e2;
 
   .main__header {
     grid-area: a;
-    background: #0d0c1d;
   }
 
   .main__sidebar {
     grid-area: b;
-    background: #161b33;
   }
 
   .main__content {
     grid-area: c;
-    background: #a69cac;
   }
 
   .main__footer {
     grid-area: d;
-    background: #0d0c1d;
   }
 }
