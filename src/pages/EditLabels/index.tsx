@@ -2,7 +2,7 @@
 import React, { Fragment } from 'react';
 
 // import components below
-import Head from '@/common/components/Head';
+const Head = React.lazy(() => import('@/common/components/Head'));
 
 const EditLabels: React.FC = () => {
   return (
@@ -10,7 +10,7 @@ const EditLabels: React.FC = () => {
       <Head title='Edit Labels' />
       <h1>Edit Labels</h1>
     </Fragment>
-  )
-}
+  );
+};
 
 export default EditLabels;

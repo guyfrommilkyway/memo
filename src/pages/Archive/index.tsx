@@ -2,7 +2,7 @@
 import React, { Fragment } from 'react';
 
 // import components below
-import Head from '@/common/components/Head';
+const Head = React.lazy(() => import('@/common/components/Head'));
 
 const Archive: React.FC = () => {
   return (
@@ -10,7 +10,7 @@ const Archive: React.FC = () => {
       <Head title='Archive' />
       <h1>Archive</h1>
     </Fragment>
-  )
-}
+  );
+};
 
 export default Archive;

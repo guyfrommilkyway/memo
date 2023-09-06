@@ -2,14 +2,15 @@
 import React, { Fragment } from 'react';
 
 // import components below
-import Head from '@/common/components/Head';
+const Head = React.lazy(() => import('@/common/components/Head'));
 
 const QuickNotes: React.FC = () => {
   return (
     <Fragment>
       <Head title='Quick Notes' />
       <h1>Quick Notes</h1>
-    </Fragment>)
-}
+    </Fragment>
+  );
+};
 
 export default QuickNotes;

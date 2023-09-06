@@ -2,7 +2,7 @@
 import React, { Fragment } from 'react';
 
 // import components below
-import Head from '@/common/components/Head';
+const Head = React.lazy(() => import('@/common/components/Head'));
 
 const Trash: React.FC = () => {
   return (
@@ -10,7 +10,7 @@ const Trash: React.FC = () => {
       <Head title='Trash' />
       <h1>Trash</h1>
     </Fragment>
-  )
-}
+  );
+};
 
 export default Trash;

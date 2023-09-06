@@ -2,16 +2,16 @@
 import React, { Fragment } from 'react';
 
 // import components below
-import Head from '@/common/components/Head';
-import Note from '@/common/components/Note';
+const Head = React.lazy(() => import('@/common/components/Head'));
+const Notes = React.lazy(() => import('@/common/components/Note'));
 
-const Notes: React.FC = () => {
+const NotesPage: React.FC = () => {
   return (
     <Fragment>
       <Head title='React Notes' />
-      <Note />
+      <Notes />
     </Fragment>
-  )
-}
+  );
+};
 
-export default Notes;
+export default NotesPage;
