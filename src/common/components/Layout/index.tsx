@@ -6,7 +6,7 @@ import { Outlet } from 'react-router-dom';
 import Content from '../Content';
 import Sidebar from '../Sidebar';
 import Header from '../Header';
-import Footer from '../Footer';
+const Footer = React.lazy(() => import('../Footer'));
 
 const Layout: React.FC = () => {
   return (
@@ -18,7 +18,7 @@ const Layout: React.FC = () => {
       </Content>
       <Footer />
     </main>
-  )
-}
+  );
+};
 
 export default Layout;
