@@ -17,9 +17,7 @@ module.exports = {
     'react/jsx-first-prop-new-line': 0,
     'react/display-name': 0,
     'react/jsx-closing-bracket-location': 1,
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
-    ],
+    'react/jsx-no-duplicate-props': 1,
+    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
   },
 };
