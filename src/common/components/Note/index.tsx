@@ -1,28 +1,13 @@
 // import packages below
-import React, { Fragment, useCallback, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Box } from '@chakra-ui/react';
 
 // import components below
-const NotesList = React.lazy(() => {
-  return Promise.all([import('./components/NotesList'), new Promise(resolve => setTimeout(resolve, 300))]).then(
-    ([moduleExports]) => moduleExports,
-  );
-});
-const NoteItem = React.lazy(() => {
-  return Promise.all([import('./components/NoteItem'), new Promise(resolve => setTimeout(resolve, 300))]).then(
-    ([moduleExports]) => moduleExports,
-  );
-});
-const NoteForm = React.lazy(() => {
-  return Promise.all([import('./components/NoteForm'), new Promise(resolve => setTimeout(resolve, 300))]).then(
-    ([moduleExports]) => moduleExports,
-  );
-});
-const CustomModal = React.lazy(() => {
-  return Promise.all([import('../Modal'), new Promise(resolve => setTimeout(resolve, 300))]).then(
-    ([moduleExports]) => moduleExports,
-  );
-});
+import NoteHeader from './components/NoteHeader';
+import NotesList from './components/NotesList';
+import NoteItem from './components/NoteItem';
+import NoteForm from './components/NoteForm';
+import CustomModal from '../Modal';
 
 // import helpers below
 import { useAppDispatch, useAppSelector } from '@/common/hooks/redux';
@@ -30,7 +15,6 @@ import { remove } from '@/features/note-slice';
 
 // import utils below
 import useModal from '@/common/hooks/useModal';
-import NoteHeader from './components/NoteHeader';
 import { Note } from '@/common/utils/note-types';
 
 const Notes: React.FC = () => {
@@ -41,12 +25,7 @@ const Notes: React.FC = () => {
   const dispatch = useAppDispatch();
 
   // state
-  const [selectedNote, setSelectedNote] = useState<Note>();
-
-  const closeHandler = useCallback(() => {
-    setSelectedNote(undefined);
-    onClose();
-  }, [onClose]);
+  const [selectedNote, setSelectedNote] = useState<Note | null>(null);
 
   return (
     <Fragment>
@@ -70,8 +49,8 @@ const Notes: React.FC = () => {
       </Box>
       <CustomModal
         isOpen={isOpen}
-        onClose={closeHandler}
-        body={<NoteForm note={selectedNote} onClose={closeHandler} />}
+        onClose={onClose}
+        body={<NoteForm note={selectedNote} onClose={onClose} onReset={setSelectedNote} />}
       />
     </Fragment>
   );
