@@ -15,19 +15,21 @@ import { BiDotsVerticalRounded } from 'react-icons/bi';
 const NoteItem: React.FC<NoteItemProps> = memo(props => {
   const { note, onOpen, onRemove, onSelect } = props;
 
-  const bodyHTML: string = useMemo(() => {
-    if (note === undefined) return '';
+  const bodyHTML: string | null = useMemo(() => {
+    if (note) {
+      const convertedState = convertFromRaw(note.body);
+      const raw = EditorState.createWithContent(convertedState);
+      const html = convertToHTML(raw.getCurrentContent());
 
-    const convertedState = convertFromRaw(note.body);
-    const raw = EditorState.createWithContent(convertedState);
-    const html = convertToHTML(raw.getCurrentContent());
+      return html;
+    }
 
-    return html;
+    return '';
   }, [note]);
 
   const createMarkup = useCallback(() => {
     return {
-      __html: DOMPurify.sanitize(bodyHTML),
+      __html: bodyHTML && DOMPurify.sanitize(bodyHTML),
     };
   }, [bodyHTML]);
 
@@ -54,9 +56,8 @@ const NoteItem: React.FC<NoteItemProps> = memo(props => {
         <VStack justify='space-between' alignItems='flex-start' w='100%' h='100%'>
           <Box
             w='100%'
-            pt={4}
+            py={4}
             px={4}
-            bg='lightcoral'
             cursor='pointer'
             onClick={() => {
               note && onSelect(note);

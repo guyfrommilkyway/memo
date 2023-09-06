@@ -16,18 +16,13 @@ import convertToRawState from '@/common/helpers/convertToRawState';
 import { NoteFormProps, NoteFormInputs } from '@/common/utils/note-types';
 
 const NoteForm: React.FC<NoteFormProps> = memo(props => {
-  const { note, onClose } = props;
+  const { note, onClose, onReset } = props;
 
   // store
   const dispatch = useAppDispatch();
 
   // state
-  const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
-
-  // set initial editor state
-  useEffect(() => {
-    if (note !== undefined) setEditorState(convertToEditorState(note?.body));
-  }, [note]);
+  const [editorState, setEditorState] = useState<EditorState>();
 
   // hook form
   const {
@@ -40,14 +35,25 @@ const NoteForm: React.FC<NoteFormProps> = memo(props => {
     data => {
       const payload = {
         title: data.title,
-        body: convertToRawState(editorState),
+        body: editorState && convertToRawState(editorState),
       };
 
       note ? dispatch(update({ ...note, ...payload })) : dispatch(create(payload));
+      onReset(null);
       onClose();
     },
-    [editorState, note, dispatch, onClose],
+    [editorState, note, dispatch, onReset, onClose],
   );
+
+  // set initial editor state
+  useEffect(() => {
+    setEditorState(EditorState.createEmpty());
+  }, []);
+
+  // set note
+  useEffect(() => {
+    note && setEditorState(convertToEditorState(note?.body));
+  }, [note]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -76,7 +82,7 @@ const NoteForm: React.FC<NoteFormProps> = memo(props => {
           }}
         />
       </Box>
-      <Button mt={8} type='submit'>
+      <Button mt={8} type='submit' color='white' colorScheme='black' bg='#353B3C'>
         Save
       </Button>
     </form>
@@ -87,5 +93,6 @@ export default NoteForm;
 
 NoteForm.propTypes = {
   note: PropTypes.any,
+  onReset: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
 };
