@@ -1,10 +1,13 @@
+// import packages below
+import { RawDraftContentState } from 'draft-js';
+
 // import utils below
 import { Component } from './types';
 
 export interface Note {
   id: string;
   title: string;
-  body: string;
+  body: RawDraftContentState;
   dateCreated: string;
   dateUpdated: string;
 }
@@ -23,8 +26,10 @@ export interface NoteHeaderProps {
 }
 
 export interface NoteItemProps {
-  note: Note;
+  note: Note | undefined;
+  onOpen: () => void;
   onRemove: (id: string) => void;
+  onSelect: (param: Note) => void;
 }
 
 export interface NotesListProps {

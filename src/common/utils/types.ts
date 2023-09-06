@@ -1,7 +1,7 @@
 // import packages below
-import { ReactNode } from 'react';
+import { ReactElement, ReactNode } from 'react';
 
-export type Component = JSX.Element | JSX.Element[] | ReactNode | ReactNode[];
+export type Component = JSX.Element | JSX.Element[] | ReactNode | ReactNode[] | ReactElement | ReactElement[];
 
 export interface ChildrenProps {
   component?: Component;
