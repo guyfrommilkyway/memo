@@ -1,5 +1,6 @@
 // import packages below
 import { RawDraftContentState } from 'draft-js';
+import { Dispatch, SetStateAction } from 'react';
 
 // import utils below
 import { Component } from './types';
@@ -26,7 +27,7 @@ export interface NoteHeaderProps {
 }
 
 export interface NoteItemProps {
-  note: Note | undefined;
+  note: Note | null;
   onOpen: () => void;
   onRemove: (id: string) => void;
   onSelect: (param: Note) => void;
@@ -37,6 +38,7 @@ export interface NotesListProps {
 }
 
 export interface NoteFormProps {
-  note?: Note;
+  note?: Note | null;
   onClose: () => void;
+  onReset: Dispatch<SetStateAction<Note | null>>;
 }
