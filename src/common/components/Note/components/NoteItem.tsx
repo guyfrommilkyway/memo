@@ -51,18 +51,18 @@ const NoteItem: React.FC<NoteItemProps> = memo(props => {
         border='1px solid #67798E'
         borderRadius={8}
       >
-        <VStack
-          justify='space-between'
-          alignItems='flex-start'
-          w='100%'
-          h='100%'
-          cursor='pointer'
-          onClick={() => {
-            note && onSelect(note);
-            onOpen();
-          }}
-        >
-          <Box w='100%' pt={4} px={4}>
+        <VStack justify='space-between' alignItems='flex-start' w='100%' h='100%'>
+          <Box
+            w='100%'
+            pt={4}
+            px={4}
+            bg='lightcoral'
+            cursor='pointer'
+            onClick={() => {
+              note && onSelect(note);
+              onOpen();
+            }}
+          >
             <Heading as='h6' mb={2} fontSize='xl'>
               {note && note.title}
             </Heading>
