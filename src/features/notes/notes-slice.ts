@@ -8,6 +8,7 @@ import { getCurrentDT } from '@/common/utils/getCurrentDT';
 
 const initialState: Notes = {
   notes: [],
+  trash: [],
 };
 
 const notesSlice = createSlice({
@@ -21,17 +22,33 @@ const notesSlice = createSlice({
       ];
     },
     update(state, action) {
-      const newState = state.notes.map(note =>
+      state.notes = state.notes.map(note =>
         action.payload.id === note.id ? { ...action.payload, dateUpdated: getCurrentDT() } : note,
       );
+    },
+    move(state, action) {
+      const note = state.notes.find(note => note.id === action.payload);
 
-      state.notes = newState;
+      // guard
+      if (typeof note === 'undefined') return;
+
+      state.notes = state.notes.filter(note => action.payload !== note.id);
+      state.trash.unshift(note);
+    },
+    restore(state, action) {
+      const note = state.trash.find(note => note.id === action.payload);
+
+      // guard
+      if (typeof note === 'undefined') return;
+
+      state.trash = state.trash.filter(note => action.payload !== note.id);
+      state.notes.unshift(note);
     },
     remove(state, action) {
-      state.notes = state.notes.filter(note => action.payload !== note.id);
+      state.trash = state.trash.filter(note => action.payload !== note.id);
     },
   },
 });
 
-export const { create, update, remove } = notesSlice.actions;
+export const { create, update, move, restore, remove } = notesSlice.actions;
 export default notesSlice.reducer;
