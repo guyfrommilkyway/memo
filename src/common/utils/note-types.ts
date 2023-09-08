@@ -19,7 +19,6 @@ export interface Notes {
 
 export interface NoteFormInputs {
   title: string;
-  body: string;
 }
 
 export interface NoteHeaderProps {
