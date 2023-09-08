@@ -3,15 +3,15 @@ import React, { Fragment, useState } from 'react';
 import { Box } from '@chakra-ui/react';
 
 // import components below
-import NoteHeader from './components/NoteHeader';
-import NotesList from './components/NotesList';
-import NoteItem from './components/NoteItem';
-import NoteForm from './components/NoteForm';
-import CustomModal from '../Modal';
+import NoteHeader from '@/common/components/Notes/components/NoteHeader';
+import NotesList from '@/common/components/Notes/components/NotesList';
+import NoteItem from '@/common/components/Notes/components/NoteItem';
+const NoteForm = React.lazy(() => import('@/common/components/Notes/components/NoteForm'));
+const CustomModal = React.lazy(() => import('@/common/components/Modal'));
 
 // import helpers below
 import { useAppDispatch, useAppSelector } from '@/common/hooks/redux';
-import { remove } from '@/features/notes/notes-slice';
+import { move } from '@/features/notes/notes-slice';
 
 // import utils below
 import useModal from '@/common/hooks/useModal';
@@ -39,7 +39,7 @@ const Notes: React.FC = () => {
                   key={note.id}
                   note={note}
                   onOpen={onOpen}
-                  onRemove={(id: string) => dispatch(remove(id))}
+                  onRemove={(id: string) => dispatch(move(id))}
                   onSelect={setSelectedNote}
                 />
               );

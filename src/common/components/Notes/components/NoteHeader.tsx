@@ -11,7 +11,7 @@ const NoteHeader: React.FC<NoteHeaderProps> = memo(props => {
 
   return (
     <Box w='100%' maxW={620} mx='auto' border='1px solid #67798E' borderRadius={8}>
-      <Text p={4} cursor='pointer' onClick={onOpen}>
+      <Text px={2} py={2} cursor='pointer' onClick={onOpen}>
         Take a note...
       </Text>
     </Box>
