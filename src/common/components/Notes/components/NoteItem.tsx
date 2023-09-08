@@ -4,17 +4,18 @@ import { Box, Flex, VStack, Button, Heading } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 
 // import utils below
-import { NoteItemProps } from '@/common/utils/note-types';
+import { NoteItemProps } from '@/common/types/note-types';
 import { EditorState, convertFromRaw } from 'draft-js';
 import { convertToHTML } from 'draft-convert';
 import DOMPurify from 'dompurify';
 
 // import assets below
 import { RiArrowGoBackFill } from 'react-icons/ri';
-import { FiArchive, FiTrash2 } from 'react-icons/fi';
+import { FiTrash2 } from 'react-icons/fi';
+import { BiArchiveIn, BiArchiveOut } from 'react-icons/bi';
 
 const NoteItem: React.FC<NoteItemProps> = memo(props => {
-  const { note, onOpen, onSelect, onArchive, onRemove, onRestore } = props;
+  const { note, onOpen, onSelect, onArchive, onUnarchive, onRemove, onRestore } = props;
 
   // state
   const [hovered, setHovered] = useState(false);
@@ -80,29 +81,22 @@ const NoteItem: React.FC<NoteItemProps> = memo(props => {
           {hovered && (
             <Flex justify='flex-end' flexWrap='wrap' w='100%' px={2}>
               {onArchive && (
-                <Button variant='ghost' colorScheme='transparent' p={0} bg='transparent'>
-                  <FiArchive />
+                <Button variant='ghost' colorScheme='transparent' p={0} bg='transparent' onClick={onArchive}>
+                  <BiArchiveIn />
+                </Button>
+              )}
+              {onUnarchive && (
+                <Button variant='ghost' colorScheme='transparent' p={0} bg='transparent' onClick={onUnarchive}>
+                  <BiArchiveOut />
                 </Button>
               )}
               {onRestore && (
-                <Button
-                  variant='ghost'
-                  colorScheme='transparent'
-                  p={0}
-                  bg='transparent'
-                  onClick={() => note && onRestore(note.id)}
-                >
+                <Button variant='ghost' colorScheme='transparent' p={0} bg='transparent' onClick={onRestore}>
                   <RiArrowGoBackFill />
                 </Button>
               )}
               {onRemove && (
-                <Button
-                  variant='ghost'
-                  colorScheme='transparent'
-                  p={0}
-                  bg='transparent'
-                  onClick={() => note && onRemove(note.id)}
-                >
+                <Button variant='ghost' colorScheme='transparent' p={0} bg='transparent' onClick={onRemove}>
                   <FiTrash2 />
                 </Button>
               )}
@@ -121,6 +115,7 @@ NoteItem.propTypes = {
   onOpen: PropTypes.func.isRequired,
   onSelect: PropTypes.func.isRequired,
   onArchive: PropTypes.func,
+  onUnarchive: PropTypes.func,
   onRemove: PropTypes.func,
   onRestore: PropTypes.func,
 };
