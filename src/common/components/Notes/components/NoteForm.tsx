@@ -13,7 +13,7 @@ import convertToEditorState from '@/common/helpers/convertToEditorState';
 import convertToRawState from '@/common/helpers/convertToRawState';
 
 // import utils below
-import { NoteFormProps, NoteFormInputs } from '@/common/utils/note-types';
+import { NoteFormProps, NoteFormInputs } from '@/common/types/note-types';
 
 const NoteForm: React.FC<NoteFormProps> = memo(props => {
   const { note, onClose, onReset } = props;

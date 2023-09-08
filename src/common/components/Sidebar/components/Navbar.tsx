@@ -3,7 +3,7 @@ import { VStack, Link, HStack, Icon, Text } from '@chakra-ui/react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 
 // import assets below
-import { NAVBAR } from '../data';
+import { NAVBAR } from '@/data/navbar';
 
 const Navbar = () => {
   const { pathname } = useLocation();
