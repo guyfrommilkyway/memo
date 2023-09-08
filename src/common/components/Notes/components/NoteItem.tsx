@@ -1,6 +1,6 @@
 // import packages below
-import React, { Fragment, memo, useCallback, useMemo } from 'react';
-import { Box, Button, Heading, Menu, MenuButton, MenuList, MenuItem, VStack } from '@chakra-ui/react';
+import React, { Fragment, memo, useCallback, useMemo, useState } from 'react';
+import { Box, Flex, VStack, Button, Heading } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 
 // import utils below
@@ -10,10 +10,14 @@ import { convertToHTML } from 'draft-convert';
 import DOMPurify from 'dompurify';
 
 // import assets below
-import { BiDotsVerticalRounded } from 'react-icons/bi';
+import { RiArrowGoBackFill } from 'react-icons/ri';
+import { FiArchive, FiTrash2 } from 'react-icons/fi';
 
 const NoteItem: React.FC<NoteItemProps> = memo(props => {
-  const { note, onOpen, onRemove, onSelect } = props;
+  const { note, onOpen, onSelect, onArchive, onRemove, onRestore } = props;
+
+  // state
+  const [hovered, setHovered] = useState(false);
 
   const bodyHTML: string | null = useMemo(() => {
     if (note) {
@@ -50,8 +54,12 @@ const NoteItem: React.FC<NoteItemProps> = memo(props => {
           '2xl': 'calc(20% - 13px)',
         }}
         h='fit-content'
-        border='1px solid #67798E'
         borderRadius={8}
+        boxShadow='rgba(0, 0, 0, 0.24) 0px 3px 8px'
+        background='#EEF0F2'
+        overflow='hidden'
+        onMouseOver={() => setHovered(true)}
+        onMouseOut={() => setHovered(false)}
       >
         <VStack justify='space-between' alignItems='flex-start' w='100%' h='100%'>
           <Box
@@ -69,15 +77,37 @@ const NoteItem: React.FC<NoteItemProps> = memo(props => {
             </Heading>
             <Box listStylePosition='inside' dangerouslySetInnerHTML={createMarkup()}></Box>
           </Box>
-          <Menu>
-            <MenuButton as={Button} variant='ghost' size='sm' ml='auto' colorScheme='transparent'>
-              <BiDotsVerticalRounded size={24} />
-            </MenuButton>
-            <MenuList>
-              <MenuItem>Archive</MenuItem>
-              <MenuItem onClick={() => note && onRemove(note.id)}>Move to trash</MenuItem>
-            </MenuList>
-          </Menu>
+          {hovered && (
+            <Flex justify='flex-end' flexWrap='wrap' w='100%' px={2}>
+              {onArchive && (
+                <Button variant='ghost' colorScheme='transparent' p={0} bg='transparent'>
+                  <FiArchive />
+                </Button>
+              )}
+              {onRestore && (
+                <Button
+                  variant='ghost'
+                  colorScheme='transparent'
+                  p={0}
+                  bg='transparent'
+                  onClick={() => note && onRestore(note.id)}
+                >
+                  <RiArrowGoBackFill />
+                </Button>
+              )}
+              {onRemove && (
+                <Button
+                  variant='ghost'
+                  colorScheme='transparent'
+                  p={0}
+                  bg='transparent'
+                  onClick={() => note && onRemove(note.id)}
+                >
+                  <FiTrash2 />
+                </Button>
+              )}
+            </Flex>
+          )}
         </VStack>
       </Box>
     </Fragment>
@@ -89,6 +119,8 @@ export default NoteItem;
 NoteItem.propTypes = {
   note: PropTypes.any,
   onOpen: PropTypes.func.isRequired,
-  onRemove: PropTypes.func.isRequired,
   onSelect: PropTypes.func.isRequired,
+  onArchive: PropTypes.func,
+  onRemove: PropTypes.func,
+  onRestore: PropTypes.func,
 };
