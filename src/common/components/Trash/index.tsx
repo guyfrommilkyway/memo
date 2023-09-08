@@ -14,7 +14,7 @@ import { restore, remove } from '@/features/notes/notes-slice';
 
 // import utils below
 import useModal from '@/common/hooks/useModal';
-import { Note } from '@/common/utils/note-types';
+import { Note } from '@/common/types/note-types';
 
 const Trash: React.FC = () => {
   const { isOpen, onOpen, onClose } = useModal();
@@ -37,8 +37,8 @@ const Trash: React.FC = () => {
                   key={note.id}
                   note={note}
                   onOpen={onOpen}
-                  onRestore={(id: string) => dispatch(restore(id))}
-                  onRemove={(id: string) => dispatch(remove(id))}
+                  onRestore={() => dispatch(restore({ data: note }))}
+                  onRemove={() => dispatch(remove({ id: note.id }))}
                   onSelect={setSelectedNote}
                 />
               );
