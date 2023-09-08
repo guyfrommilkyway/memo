@@ -3,7 +3,7 @@ import { RawDraftContentState } from 'draft-js';
 import { Dispatch, SetStateAction } from 'react';
 
 // import utils below
-import { Component } from './types';
+import { Component } from './prop-types';
 
 export interface Note {
   id: string;
@@ -16,6 +16,7 @@ export interface Note {
 export interface Notes {
   notes: Note[];
   trash: Note[];
+  archive: Note[];
 }
 
 export interface NoteFormInputs {
@@ -30,9 +31,10 @@ export interface NoteItemProps {
   note: Note | null;
   onOpen: () => void;
   onSelect: (param: Note) => void;
-  onArchive?: (id: string) => void;
-  onRemove?: (id: string) => void;
-  onRestore?: (id: string) => void;
+  onArchive?: () => void;
+  onUnarchive?: () => void;
+  onRemove?: () => void;
+  onRestore?: () => void;
 }
 
 export interface NotesListProps {
