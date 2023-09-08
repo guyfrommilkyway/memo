@@ -15,6 +15,7 @@ export interface Note {
 
 export interface Notes {
   notes: Note[];
+  trash: Note[];
 }
 
 export interface NoteFormInputs {
