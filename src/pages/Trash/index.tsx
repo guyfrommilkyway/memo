@@ -3,14 +3,15 @@ import React, { Fragment } from 'react';
 
 // import components below
 const Head = React.lazy(() => import('@/common/components/Head'));
+const Trash = React.lazy(() => import('@/common/components/Trash'));
 
-const Trash: React.FC = () => {
+const TrashPage: React.FC = () => {
   return (
     <Fragment>
       <Head title='Trash' />
-      <h1>Trash</h1>
+      <Trash />
     </Fragment>
   );
 };
 
-export default Trash;
+export default TrashPage;
