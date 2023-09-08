@@ -3,10 +3,13 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
+// import helpers below
 import notesReducer from '@/features/notes/notes-slice';
+import trashReducer from '@/features/trash/trash-slice';
 
 const rootReducer = combineReducers({
   notes: notesReducer,
+  trash: trashReducer,
 });
 
 const persistConfig = {
