@@ -7,16 +7,6 @@ import PublicRoute from '@/common/components/PublicRoute';
 import ProtectedRoute from '@/common/components/ProtectedRoute';
 import Layout from '@/common/components/Layout';
 import Notes from '@/pages/Notes';
-const Reminders = React.lazy(() => {
-  return Promise.all([import('@/pages/Reminders'), new Promise(resolve => setTimeout(resolve, 300))]).then(
-    ([moduleExports]) => moduleExports,
-  );
-});
-const EditLabels = React.lazy(() => {
-  return Promise.all([import('@/pages/EditLabels'), new Promise(resolve => setTimeout(resolve, 300))]).then(
-    ([moduleExports]) => moduleExports,
-  );
-});
 const Archive = React.lazy(() => {
   return Promise.all([import('@/pages/Archive'), new Promise(resolve => setTimeout(resolve, 300))]).then(
     ([moduleExports]) => moduleExports,
@@ -45,8 +35,6 @@ const App: React.FC = () => {
         <Route element={<ProtectedRoute />}>
           <Route element={<Layout />}>
             <Route path='/' element={<Notes />} />
-            <Route path='/reminders' element={<Reminders />} />
-            <Route path='/edit-labels' element={<EditLabels />} />
             <Route path='/archive' element={<Archive />} />
             <Route path='/trash' element={<Trash />} />
           </Route>
