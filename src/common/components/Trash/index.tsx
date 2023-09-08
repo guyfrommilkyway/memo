@@ -10,7 +10,7 @@ const CustomModal = React.lazy(() => import('@/common/components/Modal'));
 
 // import helpers below
 import { useAppDispatch, useAppSelector } from '@/common/hooks/redux';
-import { remove } from '@/features/notes/notes-slice';
+import { restore, remove } from '@/features/notes/notes-slice';
 
 // import utils below
 import useModal from '@/common/hooks/useModal';
@@ -37,6 +37,7 @@ const Trash: React.FC = () => {
                   key={note.id}
                   note={note}
                   onOpen={onOpen}
+                  onRestore={(id: string) => dispatch(restore(id))}
                   onRemove={(id: string) => dispatch(remove(id))}
                   onSelect={setSelectedNote}
                 />
