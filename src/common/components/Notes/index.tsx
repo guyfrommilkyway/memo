@@ -11,11 +11,11 @@ const CustomModal = React.lazy(() => import('@/common/components/Modal'));
 
 // import helpers below
 import { useAppDispatch, useAppSelector } from '@/common/hooks/redux';
-import { move } from '@/features/notes/notes-slice';
+import { move, archive } from '@/features/notes/notes-slice';
 
 // import utils below
 import useModal from '@/common/hooks/useModal';
-import { Note } from '@/common/utils/note-types';
+import { Note } from '@/common/types/note-types';
 
 const Notes: React.FC = () => {
   const { isOpen, onOpen, onClose } = useModal();
@@ -39,7 +39,8 @@ const Notes: React.FC = () => {
                   key={note.id}
                   note={note}
                   onOpen={onOpen}
-                  onRemove={(id: string) => dispatch(move(id))}
+                  onArchive={() => dispatch(archive({ data: note }))}
+                  onRemove={() => dispatch(move({ from: 'NOTES', data: note }))}
                   onSelect={setSelectedNote}
                 />
               );
