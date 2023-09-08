@@ -1,6 +1,6 @@
 // import assets below
 import { IconType } from 'react-icons';
-import { FaRegNoteSticky, FaRegBell, FaPencil } from 'react-icons/fa6';
+import { FaRegNoteSticky, FaPencil } from 'react-icons/fa6';
 import { FiTrash2 } from 'react-icons/fi';
 import { BiArchiveIn } from 'react-icons/bi';
 
@@ -12,7 +12,6 @@ interface NavItem {
 
 export const NAVBAR: NavItem[] = [
   { name: 'Notes', link: '/', icon: FaRegNoteSticky },
-  { name: 'Reminders', link: '/reminders', icon: FaRegBell },
   { name: 'Edit Labels', link: '/edit-labels', icon: FaPencil },
   { name: 'Archive', link: '/archive', icon: BiArchiveIn },
   { name: 'Trash', link: '/trash', icon: FiTrash2 },
