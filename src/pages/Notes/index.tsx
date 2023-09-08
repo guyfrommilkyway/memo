@@ -3,7 +3,7 @@ import React, { Fragment } from 'react';
 
 // import components below
 const Head = React.lazy(() => import('@/common/components/Head'));
-const Notes = React.lazy(() => import('@/common/components/Note'));
+const Notes = React.lazy(() => import('@/common/components/Notes'));
 
 const NotesPage: React.FC = () => {
   return (
