@@ -3,12 +3,13 @@ import { createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 
 // import utils below
-import { Notes } from '@/common/utils/note-types';
+import { Notes } from '@/common/types/note-types';
 import { getCurrentDT } from '@/common/utils/getCurrentDT';
 
 const initialState: Notes = {
   notes: [],
   trash: [],
+  archive: [],
 };
 
 const notesSlice = createSlice({
@@ -27,28 +28,36 @@ const notesSlice = createSlice({
       );
     },
     move(state, action) {
-      const note = state.notes.find(note => note.id === action.payload);
+      switch (action.payload.from) {
+        case 'NOTES':
+          state.notes = state.notes.filter(note => action.payload.data.id !== note.id);
+          break;
+        case 'ARCHIVE':
+          state.archive = state.archive.filter(note => action.payload.data.id !== note.id);
+          break;
+        default:
+          break;
+      }
 
-      // guard
-      if (typeof note === 'undefined') return;
-
-      state.notes = state.notes.filter(note => action.payload !== note.id);
-      state.trash.unshift(note);
+      state.trash.unshift(action.payload.data);
+    },
+    archive(state, action) {
+      state.notes = state.notes.filter(note => action.payload.data.id !== note.id);
+      state.archive.unshift(action.payload.data);
+    },
+    unarchive(state, action) {
+      state.archive = state.archive.filter(note => action.payload.data.id !== note.id);
+      state.notes.unshift(action.payload.data);
     },
     restore(state, action) {
-      const note = state.trash.find(note => note.id === action.payload);
-
-      // guard
-      if (typeof note === 'undefined') return;
-
-      state.trash = state.trash.filter(note => action.payload !== note.id);
-      state.notes.unshift(note);
+      state.trash = state.trash.filter(note => action.payload.data.id !== note.id);
+      state.notes.unshift(action.payload.data);
     },
     remove(state, action) {
-      state.trash = state.trash.filter(note => action.payload !== note.id);
+      state.trash = state.trash.filter(note => action.payload.id !== note.id);
     },
   },
 });
 
-export const { create, update, move, restore, remove } = notesSlice.actions;
+export const { create, update, move, archive, unarchive, restore, remove } = notesSlice.actions;
 export default notesSlice.reducer;
