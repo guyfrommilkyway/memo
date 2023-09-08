@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 // import helpers
 import { useAppDispatch } from '@/common/hooks/redux';
-import { create, update } from '@/features/note-slice';
+import { create, update } from '@/features/notes/notes-slice';
 import convertToEditorState from '@/common/helpers/convertToEditorState';
 import convertToRawState from '@/common/helpers/convertToRawState';
 
@@ -52,7 +52,7 @@ const NoteForm: React.FC<NoteFormProps> = memo(props => {
 
   // set note
   useEffect(() => {
-    note && setEditorState(convertToEditorState(note?.body));
+    note && setEditorState(convertToEditorState(note.body));
   }, [note]);
 
   return (
@@ -62,7 +62,7 @@ const NoteForm: React.FC<NoteFormProps> = memo(props => {
         isInvalid={!!errors.title}
         placeholder='Title'
         type='text'
-        {...register('title', { value: note?.title, required: true })}
+        {...register('title', { value: note?.title })}
       />
       <Box border='1px solid #e2e8f0'>
         <Editor

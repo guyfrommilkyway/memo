@@ -11,7 +11,7 @@ import CustomModal from '../Modal';
 
 // import helpers below
 import { useAppDispatch, useAppSelector } from '@/common/hooks/redux';
-import { remove } from '@/features/note-slice';
+import { remove } from '@/features/notes/notes-slice';
 
 // import utils below
 import useModal from '@/common/hooks/useModal';
