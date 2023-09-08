@@ -29,7 +29,9 @@ const Navbar = () => {
           >
             <HStack>
               <Icon as={item.icon} />
-              <Text as='span'>{item.name}</Text>
+              <Text as='span' display={{ base: 'none', sm: 'block' }}>
+                {item.name}
+              </Text>
             </HStack>
           </Link>
         );
