@@ -3,10 +3,10 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 
 // import components below
-import Content from '../Content';
-import Sidebar from '../Sidebar';
-import Header from '../Header';
-const Footer = React.lazy(() => import('../Footer'));
+import Content from '@/common/components/Content';
+import Sidebar from '@/common/components/Sidebar';
+import Header from '@/common/components/Header';
+import Footer from '@/common/components/Footer';
 
 const Layout: React.FC = () => {
   return (
