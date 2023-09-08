@@ -29,8 +29,10 @@ export interface NoteHeaderProps {
 export interface NoteItemProps {
   note: Note | null;
   onOpen: () => void;
-  onRemove: (id: string) => void;
   onSelect: (param: Note) => void;
+  onArchive?: (id: string) => void;
+  onRemove?: (id: string) => void;
+  onRestore?: (id: string) => void;
 }
 
 export interface NotesListProps {
