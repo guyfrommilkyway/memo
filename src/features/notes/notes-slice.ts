@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 
 // import utils below
-import { Notes } from '@/types/note-types';
+import { Note, Notes } from '@/types/note-types';
 import { getCurrentDT } from '@/utils/getCurrentDT';
 
 const initialState: Notes = {
@@ -17,10 +17,15 @@ const notesSlice = createSlice({
   initialState,
   reducers: {
     create(state, action) {
-      state.notes = [
-        { ...action.payload, id: uuidv4(), dateCreated: getCurrentDT(), dateUpdated: getCurrentDT() },
-        ...state.notes,
-      ];
+      const data: Note = {
+        ...action.payload,
+        id: uuidv4(),
+        dateCreated: getCurrentDT(),
+        dateUpdated: getCurrentDT(),
+        pinned: false,
+      };
+
+      state.notes.unshift(data);
     },
     update(state, action) {
       state.notes = state.notes.map(note =>
@@ -56,8 +61,18 @@ const notesSlice = createSlice({
     remove(state, action) {
       state.trash = state.trash.filter(note => action.payload.id !== note.id);
     },
+    pin(state, action) {
+      state.notes = state.notes.map(note =>
+        action.payload.id === note.id ? { ...action.payload, pinned: true } : note,
+      );
+    },
+    unpin(state, action) {
+      state.notes = state.notes.map(note =>
+        action.payload.id === note.id ? { ...action.payload, pinned: false } : note,
+      );
+    },
   },
 });
 
-export const { create, update, move, archive, unarchive, restore, remove } = notesSlice.actions;
+export const { create, update, move, archive, unarchive, restore, remove, pin, unpin } = notesSlice.actions;
 export default notesSlice.reducer;
