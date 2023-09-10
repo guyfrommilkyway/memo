@@ -1,9 +1,8 @@
 // import packages below
 import React, { memo, useState, useEffect, useCallback } from 'react';
-import { Box, Input, Button } from '@chakra-ui/react';
+import { Box, Input, Button, FormLabel } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Editor } from 'react-draft-wysiwyg';
-import { EditorState } from 'draft-js';
+import { Editor, EditorState } from 'draft-js';
 import PropTypes from 'prop-types';
 
 // import helpers
@@ -16,39 +15,33 @@ import convertToRawState from '@/helpers/convertToRawState';
 import { NoteFormProps, NoteFormInputs } from '@/types/note-types';
 
 const NoteForm: React.FC<NoteFormProps> = memo(props => {
-  const { note, onClose, onReset } = props;
+  const { note, onClose } = props;
 
   // store
   const dispatch = useAppDispatch();
 
   // state
-  const [editorState, setEditorState] = useState<EditorState>();
+  const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
 
   // hook form
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<NoteFormInputs>();
+  const { register, handleSubmit } = useForm<NoteFormInputs>();
 
+  // submit handler
   const onSubmit: SubmitHandler<NoteFormInputs> = useCallback(
     data => {
-      const payload = {
-        title: data.title,
-        body: editorState && convertToRawState(editorState),
-      };
+      const payload = { ...data, body: convertToRawState(editorState) };
 
-      note ? dispatch(update({ ...note, ...payload })) : dispatch(create(payload));
-      onReset(null);
+      // guard
+      if (!payload.title && !payload.body.blocks[0].text) onClose();
+
+      // dispatch
+      dispatch(note ? update({ ...note, ...payload }) : create(payload));
+
+      // close
       onClose();
     },
-    [editorState, note, dispatch, onReset, onClose],
+    [editorState, note, dispatch, onClose],
   );
-
-  // set initial editor state
-  useEffect(() => {
-    setEditorState(EditorState.createEmpty());
-  }, []);
 
   // set note
   useEffect(() => {
@@ -57,32 +50,17 @@ const NoteForm: React.FC<NoteFormProps> = memo(props => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Input
-        mb={4}
-        isInvalid={!!errors.title}
-        placeholder='Title'
-        type='text'
-        {...register('title', { value: note?.title })}
-      />
-      <Box border='1px solid #e2e8f0'>
-        <Editor
-          editorState={editorState}
-          toolbarClassName='toolbarClassName'
-          wrapperClassName='wrapperClassName'
-          editorClassName='editorClassName'
-          onEditorStateChange={param => setEditorState(param)}
-          toolbar={{
-            options: ['inline', 'list'],
-            inline: {
-              options: ['bold', 'italic', 'underline'],
-            },
-            list: {
-              options: ['unordered', 'ordered'],
-            },
-          }}
-        />
+      <Box mb={2}>
+        <FormLabel>Title</FormLabel>
+        <Input mb={4} type='text' {...register('title', { value: note?.title })} />
       </Box>
-      <Button mt={8} type='submit' color='white' colorScheme='black' bg='#353B3C'>
+      <Box mb={2}>
+        <FormLabel>Body</FormLabel>
+        <Box px={4} py={2} border='1px solid #e2e8f0' borderRadius={6}>
+          <Editor editorState={editorState} onChange={setEditorState} />
+        </Box>
+      </Box>
+      <Button mt={4} type='submit' color='white' colorScheme='black' bg='#353B3C'>
         Save
       </Button>
     </form>
@@ -93,6 +71,5 @@ export default NoteForm;
 
 NoteForm.propTypes = {
   note: PropTypes.any,
-  onReset: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
 };
