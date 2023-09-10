@@ -10,6 +10,7 @@ export interface Note {
   body: RawDraftContentState;
   dateCreated: string;
   dateUpdated: string;
+  pinned: boolean;
 }
 
 export interface Notes {
