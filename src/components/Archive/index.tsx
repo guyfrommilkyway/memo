@@ -51,7 +51,7 @@ const Archive: React.FC = () => {
           />
         )}
       </Box>
-      <CustomModal isOpen={isOpen} onClose={onClose} body={<NoteForm note={selected} onClose={closeHandler} />} />
+      <CustomModal isOpen={isOpen} onClose={closeHandler} body={<NoteForm note={selected} onClose={closeHandler} />} />
     </Fragment>
   );
 };
