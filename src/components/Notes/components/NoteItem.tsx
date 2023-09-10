@@ -1,13 +1,14 @@
 // import packages below
-import React, { Fragment, memo, useCallback, useMemo, useState } from 'react';
-import { Box, Flex, VStack, Button, Heading } from '@chakra-ui/react';
+import React, { Fragment, memo, useCallback, useMemo } from 'react';
+import { Box, Flex, VStack, Button, Heading, Fade } from '@chakra-ui/react';
+import { EditorState, convertFromRaw } from 'draft-js';
+import { convertToHTML } from 'draft-convert';
 import PropTypes from 'prop-types';
+import DOMPurify from 'dompurify';
 
 // import utils below
 import { NoteItemProps } from '@/types/note-types';
-import { EditorState, convertFromRaw } from 'draft-js';
-import { convertToHTML } from 'draft-convert';
-import DOMPurify from 'dompurify';
+import useToggle from '@/hooks/useToggle';
 
 // import assets below
 import { RiArrowGoBackFill } from 'react-icons/ri';
@@ -18,7 +19,7 @@ const NoteItem: React.FC<NoteItemProps> = memo(props => {
   const { note, onOpen, onSelect, onArchive, onUnarchive, onRemove, onRestore } = props;
 
   // state
-  const [hovered, setHovered] = useState(false);
+  const { toggle, toggleHandler } = useToggle();
 
   const bodyHTML: string | null = useMemo(() => {
     if (note) {
@@ -59,8 +60,8 @@ const NoteItem: React.FC<NoteItemProps> = memo(props => {
         boxShadow='rgba(0, 0, 0, 0.24) 0px 3px 8px'
         background='#EEF0F2'
         overflow='hidden'
-        onMouseOver={() => setHovered(true)}
-        onMouseOut={() => setHovered(false)}
+        onMouseOver={() => toggleHandler(true)}
+        onMouseOut={() => toggleHandler(false)}
       >
         <VStack justify='space-between' alignItems='flex-start' w='100%' h='100%'>
           <Box
@@ -78,7 +79,7 @@ const NoteItem: React.FC<NoteItemProps> = memo(props => {
             </Heading>
             <Box listStylePosition='inside' dangerouslySetInnerHTML={createMarkup()}></Box>
           </Box>
-          {hovered && (
+          <Fade in={toggle}>
             <Flex justify='flex-end' flexWrap='wrap' w='100%' px={2}>
               {onArchive && (
                 <Button variant='ghost' colorScheme='transparent' p={0} bg='transparent' onClick={onArchive}>
@@ -101,7 +102,7 @@ const NoteItem: React.FC<NoteItemProps> = memo(props => {
                 </Button>
               )}
             </Flex>
-          )}
+          </Fade>
         </VStack>
       </Box>
     </Fragment>
