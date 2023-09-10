@@ -1,5 +1,5 @@
 // import packages below
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useCallback } from 'react';
 import { Box } from '@chakra-ui/react';
 
 // import components below
@@ -14,17 +14,22 @@ import { unarchive, move } from '@/features/notes/notes-slice';
 
 // import utils below
 import useModal from '@/hooks/useModal';
-import { Note } from '@/types/note-types';
+import useSelect from '@/hooks/useSelect';
 
 const Archive: React.FC = () => {
   const { isOpen, onOpen, onClose } = useModal();
+  const { selected, selectHandler, clearSelectHandler } = useSelect();
 
   // store
   const { archive } = useAppSelector(state => state.notes);
   const dispatch = useAppDispatch();
 
-  // state
-  const [selectedNote, setSelectedNote] = useState<Note | null>(null);
+  // close modal handler
+  const closeHandler = useCallback(() => {
+    clearSelectHandler();
+    onClose();
+    return;
+  }, [clearSelectHandler, onClose]);
 
   return (
     <Fragment>
@@ -39,18 +44,14 @@ const Archive: React.FC = () => {
                   onOpen={onOpen}
                   onUnarchive={() => dispatch(unarchive({ data: note }))}
                   onRemove={() => dispatch(move({ from: 'ARCHIVE', data: note }))}
-                  onSelect={setSelectedNote}
+                  onSelect={selectHandler}
                 />
               );
             })}
           />
         )}
       </Box>
-      <CustomModal
-        isOpen={isOpen}
-        onClose={onClose}
-        body={<NoteForm note={selectedNote} onClose={onClose} onReset={setSelectedNote} />}
-      />
+      <CustomModal isOpen={isOpen} onClose={onClose} body={<NoteForm note={selected} onClose={closeHandler} />} />
     </Fragment>
   );
 };
