@@ -32,7 +32,10 @@ const NoteForm: React.FC<NoteFormProps> = memo(props => {
       const payload = { ...data, body: convertToRawState(editorState) };
 
       // guard
-      if (!payload.title && !payload.body.blocks[0].text) onClose();
+      if (!payload.title && !payload.body.blocks[0].text) {
+        onClose();
+        return;
+      }
 
       // dispatch
       dispatch(note ? update({ ...note, ...payload }) : create(payload));
