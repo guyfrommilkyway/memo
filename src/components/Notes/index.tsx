@@ -29,7 +29,6 @@ const Notes: React.FC = () => {
   const closeHandler = useCallback(() => {
     clearSelectHandler();
     onClose();
-    return;
   }, [clearSelectHandler, onClose]);
 
   return (

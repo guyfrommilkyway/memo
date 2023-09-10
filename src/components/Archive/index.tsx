@@ -28,7 +28,6 @@ const Archive: React.FC = () => {
   const closeHandler = useCallback(() => {
     clearSelectHandler();
     onClose();
-    return;
   }, [clearSelectHandler, onClose]);
 
   return (
