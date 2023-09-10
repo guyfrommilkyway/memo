@@ -15,7 +15,7 @@ import { store, persistor } from './app/store';
 
 // import assets below
 import '@/assets/styles/globals.scss';
-import '@/assets/vendors/react-draft-wysiwyg.css';
+import '@/assets/vendors/draftjs.scss';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
