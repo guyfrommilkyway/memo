@@ -61,6 +61,12 @@ const notesSlice = createSlice({
     remove(state, action) {
       state.trash = state.trash.filter(note => action.payload.id !== note.id);
     },
+    removeSelect(state, action) {
+      state.trash = state.trash.filter(note => !action.payload.includes(note.id));
+    },
+    removeAll(state) {
+      state.trash = [];
+    },
     pin(state, action) {
       state.notes = state.notes.map(note =>
         action.payload.id === note.id ? { ...action.payload, pinned: true } : note,
