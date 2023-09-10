@@ -55,11 +55,21 @@ const NoteForm: React.FC<NoteFormProps> = memo(props => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <Box mb={2}>
         <FormLabel>Title</FormLabel>
-        <Input mb={4} type='text' {...register('title', { value: note?.title })} />
+        <Input
+          mb={4}
+          border='none'
+          borderRadius={0}
+          bg='#EEF0F2'
+          _focus={{
+            boxShadow: 'none',
+          }}
+          type='text'
+          {...register('title', { value: note?.title })}
+        />
       </Box>
       <Box mb={2}>
         <FormLabel>Body</FormLabel>
-        <Box px={4} py={2} border='1px solid #e2e8f0' borderRadius={6}>
+        <Box px={4} py={2} bg='#EEF0F2'>
           <Editor editorState={editorState} onChange={setEditorState} />
         </Box>
       </Box>
