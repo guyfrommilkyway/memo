@@ -7,6 +7,16 @@ import PublicRoute from '@/components/PublicRoute';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import Layout from '@/components/Layout';
 import Notes from '@/pages/Notes';
+const Login = React.lazy(() => {
+  return Promise.all([import('@/pages/Login'), new Promise(resolve => setTimeout(resolve, 300))]).then(
+    ([moduleExports]) => moduleExports,
+  );
+});
+const SignUp = React.lazy(() => {
+  return Promise.all([import('@/pages/SignUp'), new Promise(resolve => setTimeout(resolve, 300))]).then(
+    ([moduleExports]) => moduleExports,
+  );
+});
 const Archive = React.lazy(() => {
   return Promise.all([import('@/pages/Archive'), new Promise(resolve => setTimeout(resolve, 300))]).then(
     ([moduleExports]) => moduleExports,
@@ -29,8 +39,8 @@ const App: React.FC = () => {
       <Routes>
         <Route path='*' element={<NotFound />} />
         <Route element={<PublicRoute />}>
-          <Route path='/login' element={<div>Login Page</div>} />
-          <Route path='/sign-up' element={<div>Sign Up Page</div>} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/sign-up' element={<SignUp />} />
         </Route>
         <Route element={<ProtectedRoute />}>
           <Route element={<Layout />}>
