@@ -2,8 +2,8 @@
 import React, { Fragment } from 'react';
 
 // import components below
-const Head = React.lazy(() => import('@/common/components/Head'));
-const Trash = React.lazy(() => import('@/common/components/Trash'));
+const Head = React.lazy(() => import('@/components/Head'));
+const Trash = React.lazy(() => import('@/components/Trash'));
 
 const TrashPage: React.FC = () => {
   return (

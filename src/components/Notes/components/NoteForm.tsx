@@ -7,13 +7,13 @@ import { EditorState } from 'draft-js';
 import PropTypes from 'prop-types';
 
 // import helpers
-import { useAppDispatch } from '@/common/hooks/redux';
+import { useAppDispatch } from '@/hooks/redux';
 import { create, update } from '@/features/notes/notes-slice';
-import convertToEditorState from '@/common/helpers/convertToEditorState';
-import convertToRawState from '@/common/helpers/convertToRawState';
+import convertToEditorState from '@/helpers/convertToEditorState';
+import convertToRawState from '@/helpers/convertToRawState';
 
 // import utils below
-import { NoteFormProps, NoteFormInputs } from '@/common/types/note-types';
+import { NoteFormProps, NoteFormInputs } from '@/types/note-types';
 
 const NoteForm: React.FC<NoteFormProps> = memo(props => {
   const { note, onClose, onReset } = props;

@@ -4,7 +4,7 @@ import { Flex } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 
 // import utils below
-import { NotesListProps } from '@/common/types/note-types';
+import { NotesListProps } from '@/types/note-types';
 
 const NotesList: React.FC<NotesListProps> = memo(props => {
   const { render } = props;

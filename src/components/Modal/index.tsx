@@ -11,7 +11,7 @@ import {
 import PropTypes from 'prop-types';
 
 // import utils below
-import { ModalProps } from '@/common/types/prop-types';
+import { ModalProps } from '@/types/prop-types';
 
 const CustomModal: React.FC<ModalProps> = props => {
   const { header, body, footer, isOpen, onClose } = props;

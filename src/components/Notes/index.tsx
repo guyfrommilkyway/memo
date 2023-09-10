@@ -3,19 +3,19 @@ import React, { Fragment, useState } from 'react';
 import { Box } from '@chakra-ui/react';
 
 // import components below
-import NoteHeader from '@/common/components/Notes/components/NoteHeader';
-import NotesList from '@/common/components/Notes/components/NotesList';
-import NoteItem from '@/common/components/Notes/components/NoteItem';
-const NoteForm = React.lazy(() => import('@/common/components/Notes/components/NoteForm'));
-const CustomModal = React.lazy(() => import('@/common/components/Modal'));
+import NoteHeader from './components/NoteHeader';
+import NotesList from './components/NotesList';
+import NoteItem from './components/NoteItem';
+const NoteForm = React.lazy(() => import('./components/NoteForm'));
+const CustomModal = React.lazy(() => import('@/components/Modal'));
 
 // import helpers below
-import { useAppDispatch, useAppSelector } from '@/common/hooks/redux';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { move, archive } from '@/features/notes/notes-slice';
 
 // import utils below
-import useModal from '@/common/hooks/useModal';
-import { Note } from '@/common/types/note-types';
+import useModal from '@/hooks/useModal';
+import { Note } from '@/types/note-types';
 
 const Notes: React.FC = () => {
   const { isOpen, onOpen, onClose } = useModal();

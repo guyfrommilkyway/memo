@@ -4,7 +4,7 @@ import { Box, Flex, VStack, Button, Heading } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 
 // import utils below
-import { NoteItemProps } from '@/common/types/note-types';
+import { NoteItemProps } from '@/types/note-types';
 import { EditorState, convertFromRaw } from 'draft-js';
 import { convertToHTML } from 'draft-convert';
 import DOMPurify from 'dompurify';

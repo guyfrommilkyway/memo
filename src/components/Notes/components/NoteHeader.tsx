@@ -4,7 +4,7 @@ import { Box, Text } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 
 // import utils below
-import { NoteHeaderProps } from '@/common/types/note-types';
+import { NoteHeaderProps } from '@/types/note-types';
 
 const NoteHeader: React.FC<NoteHeaderProps> = memo(props => {
   const { onOpen } = props;

@@ -8,7 +8,7 @@ import { HelmetProvider } from 'react-helmet-async';
 
 // import components below
 import App from './app/App.tsx';
-import LoaderScreen from '@/common/components/LoaderScreen';
+import LoaderScreen from '@/components/LoaderScreen';
 
 // import helpers below
 import { store, persistor } from './app/store';

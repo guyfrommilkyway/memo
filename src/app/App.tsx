@@ -3,9 +3,9 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // import components below
-import PublicRoute from '@/common/components/PublicRoute';
-import ProtectedRoute from '@/common/components/ProtectedRoute';
-import Layout from '@/common/components/Layout';
+import PublicRoute from '@/components/PublicRoute';
+import ProtectedRoute from '@/components/ProtectedRoute';
+import Layout from '@/components/Layout';
 import Notes from '@/pages/Notes';
 const Archive = React.lazy(() => {
   return Promise.all([import('@/pages/Archive'), new Promise(resolve => setTimeout(resolve, 300))]).then(

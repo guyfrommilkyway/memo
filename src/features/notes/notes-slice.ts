@@ -3,8 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 
 // import utils below
-import { Notes } from '@/common/types/note-types';
-import { getCurrentDT } from '@/common/utils/getCurrentDT';
+import { Notes } from '@/types/note-types';
+import { getCurrentDT } from '@/utils/getCurrentDT';
 
 const initialState: Notes = {
   notes: [],

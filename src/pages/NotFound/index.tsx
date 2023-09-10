@@ -4,7 +4,7 @@ import { Box, Text } from '@chakra-ui/react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 // import component below
-import Head from '@/common/components/Head';
+import Head from '@/components/Head';
 
 const NotFound: React.FC = () => {
   const { pathname } = useLocation();

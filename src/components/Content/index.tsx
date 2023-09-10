@@ -2,7 +2,7 @@
 import React from 'react';
 
 // import utils below
-import { ChildrenProps } from '@/common/types/prop-types';
+import { ChildrenProps } from '@/types/prop-types';
 import { Box } from '@chakra-ui/react';
 
 const Content: React.FC<ChildrenProps> = props => {

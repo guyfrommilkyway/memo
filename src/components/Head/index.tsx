@@ -3,7 +3,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
 // import utils below
-import { MetaProps } from '@/common/types/prop-types';
+import { MetaProps } from '@/types/prop-types';
 
 const Head: React.FC<MetaProps> = props => {
   const { title } = props;
