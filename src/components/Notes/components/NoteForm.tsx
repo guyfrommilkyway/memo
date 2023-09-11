@@ -46,13 +46,13 @@ const NoteForm: React.FC<NoteFormProps> = memo(props => {
         onClose();
 
         // toast
-        toastSuccess(note ? 'Note updated.' : 'Note created.');
+        toastSuccess(note ? 'Updated note' : 'Created note');
       } catch (error) {
         // close
         onClose();
 
         // toast
-        toastSuccess('Oops! An error occurred.');
+        toastSuccess('Oops! An error occurred');
       }
     },
     [editorState, note, dispatch, onClose],
