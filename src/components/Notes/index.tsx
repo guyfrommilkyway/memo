@@ -16,6 +16,8 @@ import { move, archive } from '@/features/notes/notes-slice';
 // import utils below
 import useModal from '@/hooks/useModal';
 import useSelect from '@/hooks/useSelect';
+import { Note } from '@/types/note-types';
+import { toastSuccess } from '@/utils/notifications';
 
 const Notes: React.FC = () => {
   const { isOpen, onOpen, onClose } = useModal();
@@ -24,6 +26,24 @@ const Notes: React.FC = () => {
   // store
   const { notes } = useAppSelector(state => state.notes);
   const dispatch = useAppDispatch();
+
+  // archive handler
+  const archiveHandler = useCallback(
+    (data: Note) => {
+      dispatch(archive({ from: 'NOTES', data }));
+      toastSuccess('Moved to archive');
+    },
+    [dispatch],
+  );
+
+  // remove handler
+  const removeHandler = useCallback(
+    (data: Note) => {
+      dispatch(move({ from: 'NOTES', data }));
+      toastSuccess('Moved to trash');
+    },
+    [dispatch],
+  );
 
   // close modal handler
   const closeHandler = useCallback(() => {
@@ -43,8 +63,8 @@ const Notes: React.FC = () => {
                   key={note.id}
                   note={note}
                   onOpen={onOpen}
-                  onArchive={() => dispatch(archive({ data: note }))}
-                  onRemove={() => dispatch(move({ from: 'NOTES', data: note }))}
+                  onArchive={() => archiveHandler(note)}
+                  onRemove={() => removeHandler(note)}
                   onSelect={selectHandler}
                 />
               );
