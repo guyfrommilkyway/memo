@@ -13,6 +13,7 @@ import convertToRawState from '@/helpers/convertToRawState';
 
 // import utils below
 import { NoteFormProps, NoteFormInputs } from '@/types/note-types';
+import { toastSuccess } from '@/utils/notifications';
 
 const NoteForm: React.FC<NoteFormProps> = memo(props => {
   const { note, onClose } = props;
@@ -29,19 +30,30 @@ const NoteForm: React.FC<NoteFormProps> = memo(props => {
   // submit handler
   const onSubmit: SubmitHandler<NoteFormInputs> = useCallback(
     data => {
-      const payload = { ...data, body: convertToRawState(editorState) };
+      try {
+        const payload = { ...data, body: convertToRawState(editorState) };
 
-      // guard
-      if (!payload.title && !payload.body.blocks[0].text) {
+        // guard
+        if (!payload.title && !payload.body.blocks[0].text) {
+          onClose();
+          return;
+        }
+
+        // dispatch
+        dispatch(note ? update({ ...note, ...payload }) : create(payload));
+
+        // close
         onClose();
-        return;
+
+        // toast
+        toastSuccess(note ? 'Note updated.' : 'Note created.');
+      } catch (error) {
+        // close
+        onClose();
+
+        // toast
+        toastSuccess('Oops! An error occurred.');
       }
-
-      // dispatch
-      dispatch(note ? update({ ...note, ...payload }) : create(payload));
-
-      // close
-      onClose();
     },
     [editorState, note, dispatch, onClose],
   );

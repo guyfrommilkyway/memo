@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { ChakraProvider } from '@chakra-ui/react';
 import { HelmetProvider } from 'react-helmet-async';
+import { ToastContainer } from 'react-toastify';
 
 // import components below
 import App from './app/App.tsx';
@@ -16,6 +17,7 @@ import { store, persistor } from './app/store';
 // import assets below
 import '@/assets/styles/globals.scss';
 import '@/assets/vendors/draftjs.scss';
+import '../node_modules/react-toastify/dist/ReactToastify.min.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -25,6 +27,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Suspense fallback={<LoaderScreen />}>
             <HelmetProvider>
               <App />
+              <ToastContainer />
             </HelmetProvider>
           </Suspense>
         </ChakraProvider>
