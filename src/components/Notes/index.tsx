@@ -55,22 +55,20 @@ const Notes: React.FC = () => {
     <Fragment>
       <Box className='note'>
         <NoteHeader onOpen={onOpen} />
-        {notes.length > 0 && (
-          <NotesList
-            render={notes.map(note => {
-              return (
-                <NoteItem
-                  key={note.id}
-                  note={note}
-                  onOpen={onOpen}
-                  onArchive={() => archiveHandler(note)}
-                  onRemove={() => removeHandler(note)}
-                  onSelect={selectHandler}
-                />
-              );
-            })}
-          />
-        )}
+        <NotesList
+          render={notes.map(note => {
+            return (
+              <NoteItem
+                key={note.id}
+                note={note}
+                onOpen={onOpen}
+                onArchive={() => archiveHandler(note)}
+                onRemove={() => removeHandler(note)}
+                onSelect={selectHandler}
+              />
+            );
+          })}
+        />
       </Box>
       <CustomModal isOpen={isOpen} onClose={closeHandler} body={<NoteForm note={selected} onClose={closeHandler} />} />
     </Fragment>
