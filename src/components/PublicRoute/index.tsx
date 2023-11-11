@@ -1,11 +1,26 @@
-// import packages below
-import React from 'react'
+// packages
+import React, { Fragment } from 'react';
 import { Outlet, Navigate } from 'react-router-dom';
 
-const isAuthenticated = false;
+// components
+import LoaderScreen from '@/components/LoaderScreen';
 
-const PublicRoute: React.FC = () => {
-  return isAuthenticated ? <Navigate to='/' /> : <Outlet />;
+// types
+interface Props {
+  isAuthenticated: boolean;
+  isLoading: boolean;
 }
+
+const PublicRoute: React.FC<Props> = props => {
+  const { isAuthenticated, isLoading } = props;
+
+  return (
+    <Fragment>
+      {isLoading && <LoaderScreen />}
+      {!isLoading && isAuthenticated && <Navigate to='/' />}
+      {!isLoading && !isAuthenticated && <Outlet />}
+    </Fragment>
+  );
+};
 
 export default PublicRoute;
