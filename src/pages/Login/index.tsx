@@ -1,16 +1,18 @@
-// import packages below
+// packages
 import React, { Fragment } from 'react';
 
-// import components below
-const Head = React.lazy(() => import('@/components/Head'));
+// components
+import Head from '@/components/Head';
+import LoginButton from './components/LoginButton';
 
-const Login: React.FC = () => {
+const LoginPage: React.FC = () => {
   return (
     <Fragment>
-      <Head title='Archive' />
+      <Head title='Login' />
       <h1>Login Page</h1>
+      <LoginButton />
     </Fragment>
   );
 };
 
-export default Login;
+export default LoginPage;
