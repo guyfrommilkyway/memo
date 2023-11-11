@@ -1,4 +1,4 @@
-// import packages below
+// packages
 import React, { Fragment, memo, useCallback, useMemo } from 'react';
 import { Box, Flex, VStack, Button, Heading, Fade } from '@chakra-ui/react';
 import { EditorState, convertFromRaw } from 'draft-js';
@@ -6,17 +6,24 @@ import { convertToHTML } from 'draft-convert';
 import PropTypes from 'prop-types';
 import DOMPurify from 'dompurify';
 
-// import utils below
-import { NoteItemProps } from '@/types/note-types';
+// utils
 import useToggle from '@/hooks/useToggle';
 
-// import assets below
+// assets
 import { RiArrowGoBackFill } from 'react-icons/ri';
 import { FiTrash2 } from 'react-icons/fi';
 import { BiArchiveIn, BiArchiveOut } from 'react-icons/bi';
 
 const NoteItem: React.FC<NoteItemProps> = memo(props => {
-  const { note, onOpen, onSelect, onArchive, onUnarchive, onRemove, onRestore } = props;
+  const {
+    note,
+    onOpen,
+    onSelect,
+    onArchive,
+    onUnarchive,
+    onRemove,
+    onRestore,
+  } = props;
 
   // state
   const { toggle, toggleHandler } = useToggle();
@@ -63,7 +70,12 @@ const NoteItem: React.FC<NoteItemProps> = memo(props => {
         onMouseOver={() => toggleHandler(true)}
         onMouseOut={() => toggleHandler(false)}
       >
-        <VStack justify='space-between' alignItems='flex-start' w='100%' h='100%'>
+        <VStack
+          justify='space-between'
+          alignItems='flex-start'
+          w='100%'
+          h='100%'
+        >
           <Box
             w='100%'
             py={4}
@@ -77,27 +89,54 @@ const NoteItem: React.FC<NoteItemProps> = memo(props => {
             <Heading as='h6' mb={2} fontSize='xl'>
               {note && note.title}
             </Heading>
-            <Box listStylePosition='inside' dangerouslySetInnerHTML={createMarkup()}></Box>
+            <Box
+              listStylePosition='inside'
+              dangerouslySetInnerHTML={createMarkup()}
+            ></Box>
           </Box>
           <Fade in={toggle}>
             <Flex justify='flex-end' flexWrap='wrap' w='100%' px={2}>
               {onArchive && (
-                <Button variant='ghost' colorScheme='transparent' p={0} bg='transparent' onClick={onArchive}>
+                <Button
+                  variant='ghost'
+                  colorScheme='transparent'
+                  p={0}
+                  bg='transparent'
+                  onClick={onArchive}
+                >
                   <BiArchiveIn />
                 </Button>
               )}
               {onUnarchive && (
-                <Button variant='ghost' colorScheme='transparent' p={0} bg='transparent' onClick={onUnarchive}>
+                <Button
+                  variant='ghost'
+                  colorScheme='transparent'
+                  p={0}
+                  bg='transparent'
+                  onClick={onUnarchive}
+                >
                   <BiArchiveOut />
                 </Button>
               )}
               {onRestore && (
-                <Button variant='ghost' colorScheme='transparent' p={0} bg='transparent' onClick={onRestore}>
+                <Button
+                  variant='ghost'
+                  colorScheme='transparent'
+                  p={0}
+                  bg='transparent'
+                  onClick={onRestore}
+                >
                   <RiArrowGoBackFill />
                 </Button>
               )}
               {onRemove && (
-                <Button variant='ghost' colorScheme='transparent' p={0} bg='transparent' onClick={onRemove}>
+                <Button
+                  variant='ghost'
+                  colorScheme='transparent'
+                  p={0}
+                  bg='transparent'
+                  onClick={onRemove}
+                >
                   <FiTrash2 />
                 </Button>
               )}
