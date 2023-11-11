@@ -1,6 +1,6 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/13f9c2e3-befc-425c-a2ee-839e850d7881/deploy-status)](https://app.netlify.com/sites/aft-react-notes/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/13f9c2e3-befc-425c-a2ee-839e850d7881/deploy-status)](https://app.netlify.com/sites/aft-memo/deploys)
 
-Check this out on https://aft-react-notes.netlify.app.
+Check this out on https://aft-memo.netlify.app.
 
 # React + TypeScript + Vite
 
