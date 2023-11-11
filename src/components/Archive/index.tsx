@@ -1,21 +1,20 @@
-// import packages below
+// packages
 import React, { Fragment, useCallback } from 'react';
 import { Box } from '@chakra-ui/react';
 
-// import components below
+// components
 import NotesList from '@/components/Notes/components/NotesList';
 import NoteItem from '@/components/Notes/components/NoteItem';
-const NoteForm = React.lazy(() => import('@/components/Notes/components/NoteForm'));
-const CustomModal = React.lazy(() => import('@/components/Modal'));
+import NoteForm from '@/components/Notes/components/NoteForm';
+import CustomModal from '@/components/Modal';
 
-// import helpers below
+// helpers
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { unarchive, move } from '@/features/notes/notes-slice';
 
-// import utils below
+// utils
 import useModal from '@/hooks/useModal';
 import useSelect from '@/hooks/useSelect';
-import { Note } from '@/types/note-types';
 import { toastSuccess } from '@/utils/notifications';
 
 const Archive: React.FC = () => {
@@ -30,7 +29,7 @@ const Archive: React.FC = () => {
   const unarchiveHandler = useCallback(
     (data: Note) => {
       dispatch(unarchive({ from: 'ARCHIVE', data }));
-      toastSuccess('Moved to notes');
+      toastSuccess('Note unarchived');
     },
     [dispatch],
   );
@@ -39,7 +38,7 @@ const Archive: React.FC = () => {
   const removeHandler = useCallback(
     (data: Note) => {
       dispatch(move({ from: 'ARCHIVE', data }));
-      toastSuccess('Moved to trash');
+      toastSuccess('Note removed');
     },
     [dispatch],
   );
@@ -70,7 +69,11 @@ const Archive: React.FC = () => {
           />
         )}
       </Box>
-      <CustomModal isOpen={isOpen} onClose={closeHandler} body={<NoteForm note={selected} onClose={closeHandler} />} />
+      <CustomModal
+        isOpen={isOpen}
+        onClose={closeHandler}
+        body={<NoteForm note={selected} onClose={closeHandler} />}
+      />
     </Fragment>
   );
 };

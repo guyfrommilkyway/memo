@@ -1,9 +1,9 @@
-// import packages below
+// packages
 import React, { Fragment } from 'react';
 
-// import components below
-const Head = React.lazy(() => import('@/components/Head'));
-const Archive = React.lazy(() => import('@/components/Archive'));
+// components
+import Head from '@/components/Head';
+import Archive from '@/components/Archive';
 
 const ArchivePage: React.FC = () => {
   return (
