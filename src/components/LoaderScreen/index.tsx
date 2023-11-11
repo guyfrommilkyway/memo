@@ -1,4 +1,4 @@
-// import packages below
+// packages
 import React from 'react';
 import { Flex, Spinner } from '@chakra-ui/react';
 

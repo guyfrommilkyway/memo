@@ -1,17 +1,14 @@
-// import packages below
+// packages
 import React from 'react';
-
-// import utils below
-import { ChildrenProps } from '@/types/prop-types';
 import { Box } from '@chakra-ui/react';
 
 const Content: React.FC<ChildrenProps> = props => {
   const { children } = props;
 
   return (
-    <section className='main__content'>
-      <Box p={8}>{children}</Box>
-    </section>
+    <Box as='section' w='full' minH='calc(100vh - 138px)' p={8}>
+      {children}
+    </Box>
   );
 };
 

@@ -1,0 +1,3 @@
+interface Trash {
+  trash: Note[];
+}

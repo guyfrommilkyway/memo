@@ -1,22 +1,21 @@
-// import packages below
+// packages
 import React, { Fragment, useCallback } from 'react';
 import { Box } from '@chakra-ui/react';
 
-// import components below
+// components
 import NoteHeader from './components/NoteHeader';
 import NotesList from './components/NotesList';
 import NoteItem from './components/NoteItem';
-const NoteForm = React.lazy(() => import('./components/NoteForm'));
-const CustomModal = React.lazy(() => import('@/components/Modal'));
+import NoteForm from './components/NoteForm';
+import CustomModal from '@/components/Modal';
 
-// import helpers below
+// helpers
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { move, archive } from '@/features/notes/notes-slice';
 
-// import utils below
+// utils
 import useModal from '@/hooks/useModal';
 import useSelect from '@/hooks/useSelect';
-import { Note } from '@/types/note-types';
 import { toastSuccess } from '@/utils/notifications';
 
 const Notes: React.FC = () => {
@@ -31,7 +30,7 @@ const Notes: React.FC = () => {
   const archiveHandler = useCallback(
     (data: Note) => {
       dispatch(archive({ from: 'NOTES', data }));
-      toastSuccess('Moved to archive');
+      toastSuccess('Note archived');
     },
     [dispatch],
   );
@@ -40,7 +39,7 @@ const Notes: React.FC = () => {
   const removeHandler = useCallback(
     (data: Note) => {
       dispatch(move({ from: 'NOTES', data }));
-      toastSuccess('Moved to trash');
+      toastSuccess('Note removed');
     },
     [dispatch],
   );
@@ -56,7 +55,7 @@ const Notes: React.FC = () => {
       <Box className='note'>
         <NoteHeader onOpen={onOpen} />
         <NotesList
-          render={notes.map(note => {
+          render={notes.map((note: Note) => {
             return (
               <NoteItem
                 key={note.id}
@@ -70,7 +69,11 @@ const Notes: React.FC = () => {
           })}
         />
       </Box>
-      <CustomModal isOpen={isOpen} onClose={closeHandler} body={<NoteForm note={selected} onClose={closeHandler} />} />
+      <CustomModal
+        isOpen={isOpen}
+        onClose={closeHandler}
+        body={<NoteForm note={selected} onClose={closeHandler} />}
+      />
     </Fragment>
   );
 };

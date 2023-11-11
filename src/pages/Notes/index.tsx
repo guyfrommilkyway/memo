@@ -1,9 +1,9 @@
-// import packages below
+// packages
 import React, { Fragment } from 'react';
 
-// import components below
-const Head = React.lazy(() => import('@/components/Head'));
-const Notes = React.lazy(() => import('@/components/Notes'));
+// components
+import Head from '@/components/Head';
+import Notes from '@/components/Notes';
 
 const NotesPage: React.FC = () => {
   return (

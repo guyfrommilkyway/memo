@@ -1,28 +1,29 @@
-// import packages below
-import React, { memo, useState, useEffect, useCallback } from 'react';
+// packages
+import React, { useState, useEffect, useCallback } from 'react';
 import { Box, Input, Button, FormLabel } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Editor, EditorState } from 'draft-js';
 import PropTypes from 'prop-types';
 
-// import helpers
+// helpers
 import { useAppDispatch } from '@/hooks/redux';
 import { create, update } from '@/features/notes/notes-slice';
 import convertToEditorState from '@/helpers/convertToEditorState';
 import convertToRawState from '@/helpers/convertToRawState';
 
-// import utils below
-import { NoteFormProps, NoteFormInputs } from '@/types/note-types';
-import { toastSuccess } from '@/utils/notifications';
+// utils
+import { toastSuccess, toastError } from '@/utils/notifications';
 
-const NoteForm: React.FC<NoteFormProps> = memo(props => {
+const NoteForm: React.FC<NoteFormProps> = props => {
   const { note, onClose } = props;
 
   // store
   const dispatch = useAppDispatch();
 
   // state
-  const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
+  const [editorState, setEditorState] = useState(() =>
+    EditorState.createEmpty(),
+  );
 
   // hook form
   const { register, handleSubmit } = useForm<NoteFormInputs>();
@@ -46,13 +47,13 @@ const NoteForm: React.FC<NoteFormProps> = memo(props => {
         onClose();
 
         // toast
-        toastSuccess(note ? 'Updated note' : 'Created note');
+        toastSuccess(note ? 'Note updated' : 'Note added');
       } catch (error) {
         // close
         onClose();
 
         // toast
-        toastSuccess('Oops! An error occurred');
+        toastError('Oops! An error occurred');
       }
     },
     [editorState, note, dispatch, onClose],
@@ -85,12 +86,18 @@ const NoteForm: React.FC<NoteFormProps> = memo(props => {
           <Editor editorState={editorState} onChange={setEditorState} />
         </Box>
       </Box>
-      <Button mt={4} type='submit' color='white' colorScheme='black' bg='#353B3C'>
+      <Button
+        mt={4}
+        type='submit'
+        color='white'
+        colorScheme='black'
+        bg='#353B3C'
+      >
         Save
       </Button>
     </form>
   );
-});
+};
 
 export default NoteForm;
 
