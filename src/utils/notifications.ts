@@ -1,28 +1,28 @@
-// import packages below
+// packages
 import { toast } from 'react-toastify';
 
 const toastSuccess = (message: string) =>
   toast.success(message, {
-    position: 'top-center',
+    position: 'bottom-right',
     autoClose: 1500,
-    hideProgressBar: false,
+    hideProgressBar: true,
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-    theme: 'light',
+    theme: 'colored',
   });
 
 const toastError = (message: string) =>
   toast.error(message, {
-    position: 'top-center',
+    position: 'bottom-right',
     autoClose: 1500,
-    hideProgressBar: false,
+    hideProgressBar: true,
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-    theme: 'light',
+    theme: 'colored',
   });
 
 export { toastSuccess, toastError };
