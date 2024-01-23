@@ -23,10 +23,12 @@ const Navbar: React.FC = () => {
             p={4}
             color={isActive ? 'white' : 'black'}
             fontWeight={isActive ? 'bold' : 'normal'}
-            bg={isActive ? '#846A6A' : 'transparent'}
+            borderTopRightRadius='full'
+            borderBottomRightRadius='full'
+            bg={isActive ? '#7392B7' : 'transparent'}
             transition='all ease-in 0.3s'
             _hover={{
-              background: pathname !== item.link && '#A2999E',
+              background: pathname !== item.link && '#C5D5EA',
             }}
           >
             <Text as='span'>{item.name}</Text>

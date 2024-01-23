@@ -1,10 +1,10 @@
-// import packages below
-import { useCallback, useState } from 'react';
+// packages
+import { useState } from 'react';
 
 const useToggle = () => {
   const [toggle, setToggle] = useState<boolean>(false);
 
-  const toggleHandler = useCallback((param: boolean) => setToggle((prev) => param ?? !prev), []);
+  const toggleHandler = (param: boolean) => setToggle(prev => param ?? !prev);
 
   return { toggle, toggleHandler };
 };

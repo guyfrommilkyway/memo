@@ -8,7 +8,7 @@ import Notes from '@/components/Notes';
 const NotesPage: React.FC = () => {
   return (
     <Fragment>
-      <Head title='React Notes' />
+      <Head title='Memo' />
       <Notes />
     </Fragment>
   );

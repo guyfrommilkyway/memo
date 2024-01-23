@@ -10,12 +10,12 @@ const Sidebar: React.FC = () => {
     <Box
       as='section'
       pos='sticky'
-      top='64px'
+      top='68px'
       w='100%'
-      h='calc(100vh - 64px)'
+      h='calc(100vh - 68px)'
       maxW='15%'
       py={4}
-      bg='#C6C7C4'
+      bg='#D8E1E9'
     >
       <Navbar />
     </Box>

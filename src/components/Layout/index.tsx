@@ -14,15 +14,16 @@ const Layout: React.FC = () => {
   return (
     <Container>
       <Header />
-      <Box
-        as='section'
-        display='flex'
-        flexWrap='nowrap'
-        alignItems='stretch'
-        w='full'
-      >
+      <Box as='section' display='flex' flexWrap='nowrap' w='full'>
         <Sidebar />
-        <Box as='section' w='full'>
+        <Box
+          as='section'
+          display='flex'
+          flexDirection='column'
+          justifyContent='space-between'
+          alignItems='space-between'
+          w='full'
+        >
           <Content>
             <Outlet />
           </Content>

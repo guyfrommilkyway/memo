@@ -15,7 +15,7 @@ const Header: React.FC = () => {
         w='full'
         h='full'
         p={4}
-        bg='#353B3C'
+        bg='#4C6D94'
       >
         <Logo />
         <LogoutButton />
