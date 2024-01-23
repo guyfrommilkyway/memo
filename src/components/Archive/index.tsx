@@ -1,5 +1,5 @@
 // packages
-import React, { Fragment, useCallback } from 'react';
+import React, { Fragment } from 'react';
 import { Box } from '@chakra-ui/react';
 
 // components
@@ -26,28 +26,22 @@ const Archive: React.FC = () => {
   const dispatch = useAppDispatch();
 
   // archive handler
-  const unarchiveHandler = useCallback(
-    (data: Note) => {
-      dispatch(unarchive({ from: 'ARCHIVE', data }));
-      toastSuccess('Note unarchived');
-    },
-    [dispatch],
-  );
+  const unarchiveHandler = (data: Note) => {
+    dispatch(unarchive({ from: 'ARCHIVE', data }));
+    toastSuccess('Note unarchived');
+  };
 
   // remove handler
-  const removeHandler = useCallback(
-    (data: Note) => {
-      dispatch(move({ from: 'ARCHIVE', data }));
-      toastSuccess('Note removed');
-    },
-    [dispatch],
-  );
+  const removeHandler = (data: Note) => {
+    dispatch(move({ from: 'ARCHIVE', data }));
+    toastSuccess('Note removed');
+  };
 
   // close modal handler
-  const closeHandler = useCallback(() => {
+  const closeHandler = () => {
     clearSelectHandler();
     onClose();
-  }, [clearSelectHandler, onClose]);
+  };
 
   return (
     <Fragment>

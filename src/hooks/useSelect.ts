@@ -1,15 +1,12 @@
-// import packages below
-import { useCallback, useState } from 'react';
+// packages
+import { useState } from 'react';
 
 const useSelect = () => {
   const [selected, setSelected] = useState<Note | null>(null);
 
-  const selectHandler = useCallback(
-    (note: Note | null) => setSelected(note),
-    [],
-  );
+  const selectHandler = (note: Note | null) => setSelected(note);
 
-  const clearSelectHandler = useCallback(() => setSelected(null), []);
+  const clearSelectHandler = () => setSelected(null);
 
   return { selected, selectHandler, clearSelectHandler };
 };
