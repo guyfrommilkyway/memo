@@ -4,7 +4,7 @@ import { Box, Flex } from '@chakra-ui/react';
 
 // components
 import Logo from '@/components/Logo';
-import LogoutButton from './LogoutButton';
+// import LogoutButton from './LogoutButton';
 
 const Header: React.FC = () => {
   return (
@@ -18,7 +18,7 @@ const Header: React.FC = () => {
         bg='#4C6D94'
       >
         <Logo />
-        <LogoutButton />
+        {/* <LogoutButton /> */}
       </Flex>
     </Box>
   );
