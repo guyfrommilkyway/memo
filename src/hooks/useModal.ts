@@ -1,4 +1,4 @@
-// import packages below
+// packages
 import { useDisclosure } from '@chakra-ui/react';
 
 const useModal = () => {
