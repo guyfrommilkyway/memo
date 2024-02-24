@@ -6,7 +6,7 @@ const Content: React.FC<ChildrenProps> = props => {
   const { children } = props;
 
   return (
-    <Box as='section' w='full' p={8}>
+    <Box as='section' w='full' my='32px'>
       {children}
     </Box>
   );

@@ -32,7 +32,7 @@ interface NoteItemProps {
 }
 
 interface NotesListProps {
-  render: Component;
+  children: Component;
 }
 
 interface NoteFormProps {
