@@ -20,9 +20,6 @@ import '@/assets/styles/globals.scss';
 import '@/assets/vendors/draftjs.scss';
 import '../node_modules/react-toastify/dist/ReactToastify.min.css';
 
-// config
-import theme from '@/config/theme.ts';
-
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Auth0Provider
@@ -34,7 +31,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     >
       <Provider store={store}>
         <PersistGate loading={<LoaderScreen />} persistor={persistor}>
-          <ChakraProvider theme={theme}>
+          <ChakraProvider>
             <Suspense fallback={<LoaderScreen />}>
               <HelmetProvider>
                 <App />
