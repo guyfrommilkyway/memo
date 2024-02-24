@@ -7,11 +7,12 @@ const Logo: React.FC = () => {
   return (
     <Link to='/'>
       <Text
-        as='span'
         color='#EEF0F2'
-        fontSize='2xl'
+        fontSize='3xl'
+        fontWeight='bold'
+        textTransform='uppercase'
+        textAlign='center'
         userSelect='none'
-        letterSpacing='2px'
       >
         Memo
       </Text>

@@ -1,6 +1,6 @@
 // packages
 import React from 'react';
-import { VStack, Link, Text } from '@chakra-ui/react';
+import { HStack, VStack, Link, Text, Icon } from '@chakra-ui/react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 
 // assets
@@ -20,18 +20,23 @@ const Navbar: React.FC = () => {
             to={item.link}
             key={index}
             w='100%'
-            p={4}
-            color={isActive ? 'white' : 'black'}
+            p='16px'
+            color={isActive ? '#232323' : '#ffffff'}
             fontWeight={isActive ? 'bold' : 'normal'}
             borderTopRightRadius='full'
             borderBottomRightRadius='full'
-            bg={isActive ? '#7392B7' : 'transparent'}
-            transition='all ease-in 0.3s'
+            bg={isActive ? '#A3A380' : 'transparent'}
+            transition='all ease-in-out 0.3s'
             _hover={{
-              background: pathname !== item.link && '#C5D5EA',
+              color: !isActive && '#232323',
+              fontWeight: 'bold',
+              backgroundColor: !isActive && '#D6CE93',
             }}
           >
-            <Text as='span'>{item.name}</Text>
+            <HStack gap='12px'>
+              <Icon fontSize='28px' as={item.icon} />
+              <Text as='span'>{item.name}</Text>
+            </HStack>
           </Link>
         );
       })}
