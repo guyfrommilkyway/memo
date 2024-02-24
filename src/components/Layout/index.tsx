@@ -14,7 +14,9 @@ import useToggle from '@/hooks/useToggle';
 const Layout: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { toggle, toggleHandler } = useToggle();
-  const [screenWidth, setScreenWidth] = useState<number>(1920);
+  const [screenWidth, setScreenWidth] = useState<number>(
+    document.documentElement.clientWidth,
+  );
 
   useLayoutEffect(() => {
     const handleResize = () => {
@@ -31,7 +33,7 @@ const Layout: React.FC = () => {
   }, [onClose]);
 
   const onToggle = useCallback(
-    () => (screenWidth > 998 ? onOpen() : toggleHandler()),
+    () => (screenWidth > 998 ? toggleHandler() : onOpen()),
     [screenWidth, toggleHandler, onOpen],
   );
 
