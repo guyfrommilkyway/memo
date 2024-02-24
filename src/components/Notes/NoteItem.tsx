@@ -59,7 +59,7 @@ const NoteItem: React.FC<NoteItemProps> = memo(props => {
         '2xl': 'calc(25% - 16px)',
       }}
       borderRadius='32px'
-      backgroundColor='#A3A380'
+      backgroundColor='#EAD7D1'
       overflow='hidden'
       p='24px'
       cursor='pointer'
@@ -71,11 +71,12 @@ const NoteItem: React.FC<NoteItemProps> = memo(props => {
     >
       <Flex flexDir='column' justify='space-between' gap='16px'>
         <Box w='100%' mb='16px'>
-          <Heading as='h6' mb='16px' fontSize='md'>
+          <Heading as='h6' mb='16px' color='#232323' fontSize='md'>
             {note?.title}
           </Heading>
           <Box
             h='100px'
+            color='#232323'
             overflow='hidden'
             listStylePosition='inside'
             dangerouslySetInnerHTML={createMarkup()}
