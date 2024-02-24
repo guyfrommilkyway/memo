@@ -32,7 +32,7 @@ const DrawerSidebar: React.FC<DrawerSidebarProps> = props => {
           bg='#232323'
           overflow='hidden'
         >
-          <Flex flexDir='column' gap='32px' w='full'>
+          <Flex flexDir='column' gap='0' w='full'>
             <Logo />
             <Navbar />
           </Flex>
