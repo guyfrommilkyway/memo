@@ -7,7 +7,7 @@ const NotesList: React.FC<NotesListProps> = props => {
   const { children } = props;
 
   return (
-    <Flex wrap='wrap' gap='24px' my='48px'>
+    <Flex wrap='wrap' gap='24px' my='32px' p='16px'>
       {children}
     </Flex>
   );
