@@ -14,29 +14,39 @@ import {
   MdPerson,
 } from 'react-icons/md';
 
-const Header: React.FC = () => {
+const Header: React.FC<HeaderProps> = props => {
+  const { onToggle } = props;
+
   return (
     <Flex
       as='header'
       pos='sticky'
-      top='32px'
+      top='0'
       justify='space-between'
       align='center'
+      w='full'
       h='80px'
-      bg='#EFEBCE'
+      mb='16px'
+      px='16px'
+      bg='#1F1A38'
     >
-      <Box cursor='pointer' userSelect='none'>
-        <MdMenu fill='#232323' size={28} />
-      </Box>
+      <Flex
+        align='center'
+        cursor='pointer'
+        userSelect='none'
+        onClick={onToggle}
+      >
+        <MdMenu fill='#FFFFFF' size={28} />
+      </Flex>
       <HStack gap='16px'>
         <Box cursor='pointer' userSelect='none'>
-          <MdOutlineRestartAlt fill='#232323' size={28} />
+          <MdOutlineRestartAlt fill='#FFFFFF' size={28} />
         </Box>
         <Box cursor='pointer' userSelect='none'>
-          <MdOutlineSettings fill='#232323' size={28} />
+          <MdOutlineSettings fill='#FFFFFF' size={28} />
         </Box>
         <Box cursor='pointer' userSelect='none'>
-          <MdPerson fill='#232323' size={28} />
+          <MdPerson fill='#FFFFFF' size={28} />
         </Box>
       </HStack>
     </Flex>
