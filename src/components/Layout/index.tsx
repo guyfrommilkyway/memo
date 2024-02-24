@@ -1,5 +1,5 @@
 // packages
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useState, useLayoutEffect, useCallback } from 'react';
 import { Flex, useDisclosure } from '@chakra-ui/react';
 import { Outlet } from 'react-router-dom';
 
@@ -30,7 +30,10 @@ const Layout: React.FC = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, [onClose]);
 
-  const onToggle = () => (screenWidth > 998 ? toggleHandler() : onOpen());
+  const onToggle = useCallback(
+    () => (screenWidth > 998 ? onOpen() : toggleHandler()),
+    [screenWidth, toggleHandler, onOpen],
+  );
 
   return (
     <Container>
