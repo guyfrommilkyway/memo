@@ -62,7 +62,7 @@ const NoteForm: React.FC<NoteFormProps> = props => {
           mb={4}
           border='none'
           borderRadius='12px'
-          bg='#CCCCCC'
+          bg='brand.300'
           _focus={{
             boxShadow: 'none',
           }}
@@ -72,7 +72,7 @@ const NoteForm: React.FC<NoteFormProps> = props => {
       </Box>
       <Box mb={2}>
         <FormLabel color='#FFFFFF'>Body</FormLabel>
-        <Box p='16px' bg='#CCCCCC' borderRadius='12px'>
+        <Box p='16px' bg='brand.300' borderRadius='12px'>
           <Editor editorState={editorState} onChange={setEditorState} />
         </Box>
       </Box>
@@ -81,7 +81,7 @@ const NoteForm: React.FC<NoteFormProps> = props => {
         type='submit'
         color='white'
         colorScheme='lavender'
-        bg='#7B506F'
+        bg='brand.200'
       >
         Save
       </Button>

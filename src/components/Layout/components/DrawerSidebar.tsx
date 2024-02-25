@@ -21,7 +21,7 @@ const DrawerSidebar: React.FC<DrawerSidebarProps> = props => {
     <Drawer isOpen={isOpen} placement='left' onClose={onClose}>
       <DrawerOverlay />
       <DrawerContent>
-        <DrawerCloseButton color='#ffffff' />
+        <DrawerCloseButton color='#FFFFFF' />
         <Flex
           as='section'
           flexDir='column'
@@ -29,7 +29,7 @@ const DrawerSidebar: React.FC<DrawerSidebarProps> = props => {
           w='full'
           h='full'
           py={4}
-          bg='#232323'
+          bg='darken.100'
           overflow='hidden'
         >
           <Flex flexDir='column' gap='0' w='full'>
