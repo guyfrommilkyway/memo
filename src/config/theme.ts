@@ -3,6 +3,12 @@ import { extendTheme } from '@chakra-ui/react';
 
 const theme = extendTheme({
   colors: {
+    whiten: {
+      100: '#E4E4E4',
+    },
+    darken: {
+      100: '#232323',
+    },
     brand: {
       100: '#1F1A38',
       200: '#7B506F',
