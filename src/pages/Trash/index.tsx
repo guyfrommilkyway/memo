@@ -1,6 +1,5 @@
 // packages
 import React, { Fragment } from 'react';
-import { Box } from '@chakra-ui/react';
 
 // components
 import Head from '@/components/Head';
@@ -47,24 +46,22 @@ const TrashPage: React.FC = () => {
   return (
     <Fragment>
       <Head title='Trash' />
-      <Box className='note'>
-        {trash.length > 0 && (
-          <NotesList>
-            {trash.map(note => {
-              return (
-                <NoteItem
-                  key={note.id}
-                  note={note}
-                  onOpen={onOpen}
-                  onRestore={() => restoreHandler(note)}
-                  onRemove={() => removeHandler(note.id)}
-                  onSelect={selectHandler}
-                />
-              );
-            })}
-          </NotesList>
-        )}
-      </Box>
+      {trash.length > 0 && (
+        <NotesList>
+          {trash.map(note => {
+            return (
+              <NoteItem
+                key={note.id}
+                note={note}
+                onOpen={onOpen}
+                onRestore={() => restoreHandler(note)}
+                onRemove={() => removeHandler(note.id)}
+                onSelect={selectHandler}
+              />
+            );
+          })}
+        </NotesList>
+      )}
       <CustomModal
         isOpen={isOpen}
         onClose={closeHandler}

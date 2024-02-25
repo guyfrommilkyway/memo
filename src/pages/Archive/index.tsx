@@ -1,6 +1,5 @@
 // packages
 import React, { Fragment } from 'react';
-import { Box } from '@chakra-ui/react';
 
 // components
 import NotesList from '@/components/Notes/NotesList';
@@ -49,24 +48,22 @@ const ArchivePage: React.FC = () => {
   return (
     <Fragment>
       <Head title='Archive' />
-      <Box className='note'>
-        {archive.length > 0 && (
-          <NotesList>
-            {archive.map(note => {
-              return (
-                <NoteItem
-                  key={note.id}
-                  note={note}
-                  onOpen={onOpen}
-                  onUnarchive={() => unarchiveHandler(note)}
-                  onRemove={() => removeHandler(note)}
-                  onSelect={selectHandler}
-                />
-              );
-            })}
-          </NotesList>
-        )}
-      </Box>
+      {archive.length > 0 && (
+        <NotesList>
+          {archive.map(note => {
+            return (
+              <NoteItem
+                key={note.id}
+                note={note}
+                onOpen={onOpen}
+                onUnarchive={() => unarchiveHandler(note)}
+                onRemove={() => removeHandler(note)}
+                onSelect={selectHandler}
+              />
+            );
+          })}
+        </NotesList>
+      )}
       <CustomModal
         isOpen={isOpen}
         onClose={closeHandler}
