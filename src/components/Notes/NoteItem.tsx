@@ -58,10 +58,11 @@ const NoteItem: React.FC<NoteItemProps> = memo(props => {
         'xl': 'calc(33.333% - 16px)',
         '2xl': 'calc(25% - 16px)',
       }}
-      borderRadius='32px'
-      backgroundColor='#EAD7D1'
-      overflow='hidden'
+      h='fit-content'
       p='24px'
+      borderRadius='32px'
+      backgroundColor='brand.300'
+      overflow='hidden'
       cursor='pointer'
       onClick={() => {
         if (note) onSelect(note);
@@ -71,14 +72,14 @@ const NoteItem: React.FC<NoteItemProps> = memo(props => {
     >
       <Flex flexDir='column' justify='space-between' gap='16px'>
         <Box w='100%' mb='16px'>
-          <Heading as='h6' mb='16px' color='#232323' fontSize='md'>
+          <Heading as='h6' mb='16px' color='darken.100' fontSize='md'>
             {note?.title}
           </Heading>
           <Box
-            h='100px'
-            color='#232323'
-            overflow='hidden'
+            maxH='320px'
+            color='darken.100'
             listStylePosition='inside'
+            overflow='hidden'
             dangerouslySetInnerHTML={createMarkup()}
           ></Box>
         </Box>
@@ -91,7 +92,7 @@ const NoteItem: React.FC<NoteItemProps> = memo(props => {
                 onArchive();
               }}
             >
-              <MdArchive color='#232323' size={24} />
+              <MdArchive color='darken.100' size={24} />
             </Box>
           )}
           {onUnarchive && (
@@ -102,7 +103,7 @@ const NoteItem: React.FC<NoteItemProps> = memo(props => {
                 onUnarchive();
               }}
             >
-              <MdUnarchive color='#232323' size={24} />
+              <MdUnarchive color='darken.100' size={24} />
             </Box>
           )}
           {onRestore && (
@@ -113,7 +114,7 @@ const NoteItem: React.FC<NoteItemProps> = memo(props => {
                 onRestore();
               }}
             >
-              <MdRestore color='#232323' size={24} />
+              <MdRestore color='darken.100' size={24} />
             </Box>
           )}
           {onRemove && (
@@ -124,7 +125,7 @@ const NoteItem: React.FC<NoteItemProps> = memo(props => {
                 onRemove();
               }}
             >
-              <MdDeleteForever color='#232323' size={24} />
+              <MdDeleteForever color='darken.100' size={24} />
             </Box>
           )}
         </Flex>

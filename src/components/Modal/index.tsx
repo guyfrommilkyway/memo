@@ -16,7 +16,7 @@ const CustomModal: React.FC<ModalProps> = props => {
   return (
     <Modal size='xl' isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent pt={8} bg='#1F1A38'>
+      <ModalContent pt={8} bg='brand.100'>
         {header && <ModalHeader>{header}</ModalHeader>}
         <ModalCloseButton color='#FFFFFF' size='lg' />
         {body && <ModalBody py={4}>{body}</ModalBody>}

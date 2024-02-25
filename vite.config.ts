@@ -2,19 +2,25 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react()],
-  define: {
-    global: 'window',
-  },
-  resolve: {
-    alias: {
-      '@': '/src',
+export default defineConfig(({ mode }) => {
+  const config = {
+    plugins: [react()],
+    define: {
+      global: 'window',
     },
-  },
-  server: {
-    watch: {
-      usePolling: true,
+    resolve: {
+      alias: {
+        '@': '/src',
+      },
     },
-  },
+    server: {
+      watch: {
+        usePolling: true,
+      },
+    },
+  };
+
+  if (mode !== 'development') delete config.define;
+
+  return config;
 });

@@ -23,14 +23,17 @@ const Layout: React.FC = () => {
       const width = document.documentElement.clientWidth;
       setScreenWidth(width);
 
-      if (width > 995) onClose();
+      if (width > 995) {
+        onClose();
+        toggleHandler(true);
+      }
     };
 
     window.addEventListener('resize', handleResize);
 
     // clean up function
     return () => window.removeEventListener('resize', handleResize);
-  }, [onClose]);
+  }, [onClose, toggleHandler]);
 
   const onToggle = useCallback(
     () => (screenWidth > 998 ? toggleHandler() : onOpen()),

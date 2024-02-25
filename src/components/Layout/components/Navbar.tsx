@@ -25,11 +25,11 @@ const Navbar: React.FC = () => {
             fontWeight={isActive ? 'bold' : 'normal'}
             borderTopRightRadius='full'
             borderBottomRightRadius='full'
-            bg={isActive ? '#7B506F' : 'transparent'}
+            bg={isActive ? 'brand.200' : 'transparent'}
             transition='all ease-in-out 0.3s'
             _hover={{
               fontWeight: 'bold',
-              backgroundColor: !isActive && '#7B506F',
+              backgroundColor: !isActive && 'brand.200',
             }}
           >
             <HStack gap='12px'>

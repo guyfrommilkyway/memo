@@ -14,7 +14,7 @@ const NoteHeader: React.FC<NoteHeaderProps> = props => {
         mx='16px'
         p='16px'
         borderRadius='32px'
-        bg='#7B506F'
+        bg='brand.200'
         cursor='pointer'
         userSelect='none'
         onClick={onOpen}
