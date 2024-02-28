@@ -25,6 +25,8 @@ interface NoteItemProps {
   note: Note | null;
   onOpen: () => void;
   onSelect: (param: Note | null) => void;
+  onPin: () => void;
+  onUnpin: () => void;
   onArchive?: () => void;
   onUnarchive?: () => void;
   onRemove?: () => void;
