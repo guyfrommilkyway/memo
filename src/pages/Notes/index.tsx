@@ -1,9 +1,10 @@
 // packages
-import React, { Fragment, useCallback } from 'react';
+import React, { Fragment, useCallback, useMemo } from 'react';
 
 // components
 import Head from '@/components/Head';
-import NoteHeader from '@/components/Notes/NoteHeader';
+import NoteAddButton from '@/components/Notes/NoteAddButton';
+import NoteHeading from '@/components/Notes/NoteHeading';
 import NotesList from '@/components/Notes/NotesList';
 import NoteItem from '@/components/Notes/NoteItem';
 import NoteForm from '@/components/Notes/NoteForm';
@@ -32,6 +33,7 @@ const NotesPage: React.FC = () => {
   const pinHandler = useCallback(
     (data: Note) => {
       dispatch(pin(data));
+      toastSuccess('Note pinned');
     },
     [dispatch],
   );
@@ -40,6 +42,7 @@ const NotesPage: React.FC = () => {
   const unpinHandler = useCallback(
     (data: Note) => {
       dispatch(unpin(data));
+      toastSuccess('Note unpinned');
     },
     [dispatch],
   );
@@ -68,26 +71,61 @@ const NotesPage: React.FC = () => {
     onClose();
   }, [clearSelectHandler, onClose]);
 
+  const pinned = useMemo(
+    () => notes.filter((note: Note) => note.pinned),
+    [notes],
+  );
+  const others = useMemo(
+    () => notes.filter((note: Note) => !note.pinned),
+    [notes],
+  );
+
   return (
     <Fragment>
       <Head title='Memo' />
-      <NoteHeader onOpen={onOpen} />
-      <NotesList>
-        {notes.map((note: Note) => {
-          return (
-            <NoteItem
-              key={note.id}
-              note={note}
-              onOpen={onOpen}
-              onPin={() => pinHandler(note)}
-              onUnpin={() => unpinHandler(note)}
-              onArchive={() => archiveHandler(note)}
-              onRemove={() => removeHandler(note)}
-              onSelect={selectHandler}
-            />
-          );
-        })}
-      </NotesList>
+      <NoteAddButton onOpen={onOpen} />
+      {pinned.length > 0 && (
+        <>
+          <NoteHeading text='Pinned' />
+          <NotesList>
+            {pinned.map((note: Note) => {
+              return (
+                <NoteItem
+                  key={note.id}
+                  note={note}
+                  onOpen={onOpen}
+                  onPin={() => pinHandler(note)}
+                  onUnpin={() => unpinHandler(note)}
+                  onArchive={() => archiveHandler(note)}
+                  onRemove={() => removeHandler(note)}
+                  onSelect={selectHandler}
+                />
+              );
+            })}
+          </NotesList>
+        </>
+      )}
+      {others.length > 0 && (
+        <>
+          <NoteHeading text='Others' />
+          <NotesList>
+            {others.map((note: Note) => {
+              return (
+                <NoteItem
+                  key={note.id}
+                  note={note}
+                  onOpen={onOpen}
+                  onPin={() => pinHandler(note)}
+                  onUnpin={() => unpinHandler(note)}
+                  onArchive={() => archiveHandler(note)}
+                  onRemove={() => removeHandler(note)}
+                  onSelect={selectHandler}
+                />
+              );
+            })}
+          </NotesList>
+        </>
+      )}
       <CustomModal
         isOpen={isOpen}
         onClose={closeHandler}
