@@ -17,7 +17,7 @@ interface NoteFormInputs {
   title: string;
 }
 
-interface NoteHeaderProps {
+interface NoteAddButtonProps {
   onOpen: () => void;
 }
 
@@ -40,4 +40,8 @@ interface NotesListProps {
 interface NoteFormProps {
   note?: Note | null;
   onClose: () => void;
+}
+
+interface NoteHeading {
+  text: string;
 }

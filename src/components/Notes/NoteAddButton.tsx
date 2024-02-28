@@ -3,7 +3,7 @@ import React from 'react';
 import { Center, Box, Text } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 
-const NoteHeader: React.FC<NoteHeaderProps> = props => {
+const NoteAddButton: React.FC<NoteAddButtonProps> = props => {
   const { onOpen } = props;
 
   return (
@@ -27,8 +27,8 @@ const NoteHeader: React.FC<NoteHeaderProps> = props => {
   );
 };
 
-export default NoteHeader;
+export default NoteAddButton;
 
-NoteHeader.propTypes = {
+NoteAddButton.propTypes = {
   onOpen: PropTypes.func.isRequired,
 };
