@@ -12,8 +12,8 @@ import {
   MdUnarchive,
   MdRestore,
   MdDeleteForever,
-  MdPushPin,
 } from 'react-icons/md';
+import { RiPushpinFill, RiUnpinFill } from 'react-icons/ri';
 
 const NoteItem: React.FC<NoteItemProps> = memo(props => {
   const {
@@ -95,10 +95,10 @@ const NoteItem: React.FC<NoteItemProps> = memo(props => {
                 onPin();
               }}
             >
-              <MdPushPin color='darken.100' size={24} />
+              <RiPushpinFill color='darken.100' size={24} />
             </Box>
           )}
-          {note && note?.pinned && (
+          {note && note.pinned && (
             <Box
               cursor='pointer'
               onClick={e => {
@@ -106,7 +106,7 @@ const NoteItem: React.FC<NoteItemProps> = memo(props => {
                 onUnpin();
               }}
             >
-              <MdPushPin color='darken.100' size={24} />
+              <RiUnpinFill color='darken.100' size={24} />
             </Box>
           )}
           {onArchive && (
