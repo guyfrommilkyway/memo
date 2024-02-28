@@ -17,7 +17,7 @@ interface NoteFormInputs {
   title: string;
 }
 
-interface NoteHeaderProps {
+interface NoteAddButtonProps {
   onOpen: () => void;
 }
 
@@ -25,6 +25,8 @@ interface NoteItemProps {
   note: Note | null;
   onOpen: () => void;
   onSelect: (param: Note | null) => void;
+  onPin: () => void;
+  onUnpin: () => void;
   onArchive?: () => void;
   onUnarchive?: () => void;
   onRemove?: () => void;
@@ -38,4 +40,8 @@ interface NotesListProps {
 interface NoteFormProps {
   note?: Note | null;
   onClose: () => void;
+}
+
+interface NoteHeading {
+  text: string;
 }
