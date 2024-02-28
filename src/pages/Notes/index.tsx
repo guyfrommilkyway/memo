@@ -11,7 +11,7 @@ import CustomModal from '@/components/Modal';
 
 // helpers
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-import { move, archive } from '@/features/notes/notes-slice';
+import { pin, unpin, move, archive } from '@/features/notes/notes-slice';
 
 // utils
 import useModal from '@/hooks/useModal';
@@ -25,6 +25,24 @@ const NotesPage: React.FC = () => {
   // store
   const { notes } = useAppSelector(state => state.notes);
   const dispatch = useAppDispatch();
+
+  console.log(notes);
+
+  // pin handler
+  const pinHandler = useCallback(
+    (data: Note) => {
+      dispatch(pin(data));
+    },
+    [dispatch],
+  );
+
+  // unpin handler
+  const unpinHandler = useCallback(
+    (data: Note) => {
+      dispatch(unpin(data));
+    },
+    [dispatch],
+  );
 
   // archive handler
   const archiveHandler = useCallback(
@@ -61,6 +79,8 @@ const NotesPage: React.FC = () => {
               key={note.id}
               note={note}
               onOpen={onOpen}
+              onPin={() => pinHandler(note)}
+              onUnpin={() => unpinHandler(note)}
               onArchive={() => archiveHandler(note)}
               onRemove={() => removeHandler(note)}
               onSelect={selectHandler}

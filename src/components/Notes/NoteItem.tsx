@@ -12,6 +12,7 @@ import {
   MdUnarchive,
   MdRestore,
   MdDeleteForever,
+  MdPushPin,
 } from 'react-icons/md';
 
 const NoteItem: React.FC<NoteItemProps> = memo(props => {
@@ -19,6 +20,8 @@ const NoteItem: React.FC<NoteItemProps> = memo(props => {
     note,
     onOpen,
     onSelect,
+    onPin,
+    onUnpin,
     onArchive,
     onUnarchive,
     onRemove,
@@ -84,6 +87,28 @@ const NoteItem: React.FC<NoteItemProps> = memo(props => {
           ></Box>
         </Box>
         <Flex gap='12px'>
+          {note && !note.pinned && (
+            <Box
+              cursor='pointer'
+              onClick={e => {
+                e.stopPropagation();
+                onPin();
+              }}
+            >
+              <MdPushPin color='darken.100' size={24} />
+            </Box>
+          )}
+          {note && note?.pinned && (
+            <Box
+              cursor='pointer'
+              onClick={e => {
+                e.stopPropagation();
+                onUnpin();
+              }}
+            >
+              <MdPushPin color='darken.100' size={24} />
+            </Box>
+          )}
           {onArchive && (
             <Box
               cursor='pointer'
@@ -140,6 +165,8 @@ NoteItem.propTypes = {
   note: PropTypes.any,
   onOpen: PropTypes.func.isRequired,
   onSelect: PropTypes.func.isRequired,
+  onPin: PropTypes.func.isRequired,
+  onUnpin: PropTypes.func.isRequired,
   onArchive: PropTypes.func,
   onUnarchive: PropTypes.func,
   onRemove: PropTypes.func,
