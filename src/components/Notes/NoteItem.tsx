@@ -5,6 +5,7 @@ import { EditorState, convertFromRaw } from 'draft-js';
 import { convertToHTML } from 'draft-convert';
 import PropTypes from 'prop-types';
 import DOMPurify from 'dompurify';
+import { useLocation } from 'react-router-dom';
 
 // assets
 import {
@@ -27,6 +28,8 @@ const NoteItem: React.FC<NoteItemProps> = memo(props => {
     onRemove,
     onRestore,
   } = props;
+
+  const { pathname } = useLocation();
 
   const bodyHTML: string | null = useMemo(() => {
     if (!note) return '';
@@ -87,23 +90,23 @@ const NoteItem: React.FC<NoteItemProps> = memo(props => {
           ></Box>
         </Box>
         <Flex gap='12px'>
-          {note && !note.pinned && (
+          {note && !note.pinned && pathname === '/' && (
             <Box
               cursor='pointer'
               onClick={e => {
                 e.stopPropagation();
-                onPin();
+                onPin && onPin();
               }}
             >
               <RiPushpinFill color='darken.100' size={24} />
             </Box>
           )}
-          {note && note.pinned && (
+          {note && note.pinned && pathname === '/' && (
             <Box
               cursor='pointer'
               onClick={e => {
                 e.stopPropagation();
-                onUnpin();
+                onUnpin && onUnpin();
               }}
             >
               <RiUnpinFill color='darken.100' size={24} />
