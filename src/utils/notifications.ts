@@ -10,7 +10,7 @@ const toastSuccess = (message: string) =>
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-    theme: 'colored',
+    theme: 'dark',
   });
 
 const toastError = (message: string) =>
@@ -22,7 +22,7 @@ const toastError = (message: string) =>
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-    theme: 'colored',
+    theme: 'dark',
   });
 
 export { toastSuccess, toastError };

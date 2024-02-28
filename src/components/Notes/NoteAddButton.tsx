@@ -12,6 +12,7 @@ const NoteAddButton: React.FC<NoteAddButtonProps> = props => {
         w='100%'
         maxW='440px'
         mx='16px'
+        mb='32px'
         p='16px'
         borderRadius='32px'
         bg='brand.200'
