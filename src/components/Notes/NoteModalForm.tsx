@@ -1,6 +1,6 @@
 // packages
 import React, { useState, useEffect, useCallback } from 'react';
-import { Box, Input, Button, FormLabel } from '@chakra-ui/react';
+import { Flex, Input, Button } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Editor, EditorState } from 'draft-js';
 import PropTypes from 'prop-types';
@@ -14,7 +14,7 @@ import convertToRawState from '@/helpers/convertToRawState';
 // utils
 import { toastSuccess, toastError } from '@/utils/notifications';
 
-const NoteForm: React.FC<NoteFormProps> = props => {
+const NoteForm: React.FC<NoteModalFormProps> = props => {
   const { note, onClose } = props;
 
   // store
@@ -56,35 +56,28 @@ const NoteForm: React.FC<NoteFormProps> = props => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Box mb={2}>
-        <FormLabel color='#FFFFFF'>Title</FormLabel>
-        <Input
-          mb={4}
-          border='none'
-          borderRadius='12px'
-          bg='brand.300'
-          _focus={{
-            boxShadow: 'none',
-          }}
-          type='text'
-          {...register('title', { value: note?.title })}
-        />
-      </Box>
-      <Box mb={2}>
-        <FormLabel color='#FFFFFF'>Body</FormLabel>
-        <Box p='16px' bg='brand.300' borderRadius='12px'>
-          <Editor editorState={editorState} onChange={setEditorState} />
-        </Box>
-      </Box>
-      <Button
-        mt={4}
-        type='submit'
-        color='white'
-        colorScheme='lavender'
-        bg='brand.200'
-      >
-        Save
-      </Button>
+      <Input
+        mb={2}
+        p={0}
+        fontWeight='600'
+        border='none'
+        _focus={{
+          boxShadow: 'none',
+        }}
+        type='text'
+        {...register('title', { value: note?.title })}
+      />
+      <Editor editorState={editorState} onChange={setEditorState} />
+      <Flex justify='flex-end'>
+        <Flex gap={2} justify='flex-end' mt={4}>
+          <Button colorScheme='none' color='darken.100' onClick={onClose}>
+            Close
+          </Button>
+          <Button type='submit' colorScheme='lavender' bg='brand.200'>
+            Save
+          </Button>
+        </Flex>
+      </Flex>
     </form>
   );
 };
