@@ -37,7 +37,13 @@ interface NotesListProps {
   children: Component;
 }
 
-interface NoteFormProps {
+interface NoteHeaderFormProps {
+  note?: Note | null;
+  toggle: boolean;
+  onToggle: (param: boolean) => void;
+}
+
+interface NoteModalFormProps {
   note?: Note | null;
   onClose: () => void;
 }
