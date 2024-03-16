@@ -9,11 +9,11 @@ import Content from './components/Content';
 import Sidebar from './components/Sidebar';
 import DrawerSidebar from './components/DrawerSidebar';
 import Header from './components/Header';
-import useToggle from '@/hooks/useToggle';
+import useSidebar from '@/hooks/useSidebar';
 
 const Layout: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { toggle, toggleHandler } = useToggle();
+  const { toggle, toggleHandler } = useSidebar();
   const [screenWidth, setScreenWidth] = useState<number>(
     document.documentElement.clientWidth,
   );
