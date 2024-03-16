@@ -14,11 +14,11 @@ const CustomModal: React.FC<ModalProps> = props => {
   const { header, body, footer, isOpen, onClose } = props;
 
   return (
-    <Modal size='2xl' isOpen={isOpen} onClose={onClose}>
+    <Modal size='xl' isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent pt={8} bg='brand.100'>
+      <ModalContent pt={8} bg='brand.300' borderRadius='32px'>
         {header && <ModalHeader>{header}</ModalHeader>}
-        <ModalCloseButton color='#FFFFFF' size='lg' />
+        <ModalCloseButton />
         {body && <ModalBody py={4}>{body}</ModalBody>}
         {footer && <ModalFooter>{footer}</ModalFooter>}
       </ModalContent>
