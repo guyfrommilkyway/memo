@@ -3,11 +3,11 @@ import React, { Fragment, useCallback, useMemo } from 'react';
 
 // components
 import Head from '@/components/Head';
-import NoteAddButton from '@/components/Notes/NoteAddButton';
 import NoteHeading from '@/components/Notes/NoteHeading';
 import NotesList from '@/components/Notes/NotesList';
 import NoteItem from '@/components/Notes/NoteItem';
-import NoteForm from '@/components/Notes/NoteForm';
+import NoteHeaderForm from '@/components/Notes/NoteHeaderForm';
+import NoteModalForm from '@/components/Notes/NoteModalForm';
 import CustomModal from '@/components/Modal';
 
 // helpers
@@ -17,6 +17,7 @@ import { pin, unpin, move, archive } from '@/features/notes/notes-slice';
 // utils
 import useModal from '@/hooks/useModal';
 import useSelect from '@/hooks/useSelect';
+import useToggle from '@/hooks/useToggle';
 import { toastSuccess } from '@/utils/notifications';
 
 const NotesPage: React.FC = () => {
@@ -27,7 +28,7 @@ const NotesPage: React.FC = () => {
   const { notes } = useAppSelector(state => state.notes);
   const dispatch = useAppDispatch();
 
-  console.log(notes);
+  const { toggle, toggleHandler } = useToggle();
 
   // pin handler
   const pinHandler = useCallback(
@@ -66,10 +67,10 @@ const NotesPage: React.FC = () => {
   );
 
   // close modal handler
-  const closeHandler = useCallback(() => {
+  const closeModalHandler = () => {
     clearSelectHandler();
     onClose();
-  }, [clearSelectHandler, onClose]);
+  };
 
   const pinned = useMemo(
     () => notes.filter((note: Note) => note.pinned),
@@ -83,7 +84,7 @@ const NotesPage: React.FC = () => {
   return (
     <Fragment>
       <Head title='Memo' />
-      <NoteAddButton onOpen={onOpen} />
+      <NoteHeaderForm toggle={toggle} onToggle={toggleHandler} />
       {pinned.length > 0 && (
         <>
           <NoteHeading text='Pinned' />
@@ -128,8 +129,8 @@ const NotesPage: React.FC = () => {
       )}
       <CustomModal
         isOpen={isOpen}
-        onClose={closeHandler}
-        body={<NoteForm note={selected} onClose={closeHandler} />}
+        onClose={closeModalHandler}
+        body={<NoteModalForm note={selected} onClose={closeModalHandler} />}
       />
     </Fragment>
   );

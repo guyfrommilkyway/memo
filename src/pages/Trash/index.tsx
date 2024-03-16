@@ -5,7 +5,7 @@ import React, { Fragment } from 'react';
 import Head from '@/components/Head';
 import NotesList from '@/components/Notes/NotesList';
 import NoteItem from '@/components/Notes/NoteItem';
-import NoteForm from '@/components/Notes/NoteForm';
+import NoteModalForm from '@/components/Notes/NoteModalForm';
 import CustomModal from '@/components/Modal';
 
 // helpers
@@ -65,7 +65,7 @@ const TrashPage: React.FC = () => {
       <CustomModal
         isOpen={isOpen}
         onClose={closeHandler}
-        body={<NoteForm note={selected} onClose={closeHandler} />}
+        body={<NoteModalForm note={selected} onClose={closeHandler} />}
       />
     </Fragment>
   );
