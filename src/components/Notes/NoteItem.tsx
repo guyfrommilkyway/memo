@@ -66,7 +66,7 @@ const NoteItem: React.FC<NoteItemProps> = memo(props => {
       }}
       h='fit-content'
       p='24px'
-      borderRadius='32px'
+      borderRadius='lg'
       backgroundColor='brand.300'
       overflow='hidden'
       cursor='pointer'

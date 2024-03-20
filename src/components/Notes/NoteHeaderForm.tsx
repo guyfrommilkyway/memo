@@ -1,6 +1,6 @@
 // packages
 import React, { useState, useEffect, useCallback } from 'react';
-import { Box, Flex, Input, Button } from '@chakra-ui/react';
+import { Box, Flex, Center, Input, Button } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Editor, EditorState } from 'draft-js';
 import PropTypes from 'prop-types';
@@ -62,50 +62,53 @@ const NoteHeaderForm: React.FC<NoteHeaderFormProps> = props => {
   }, [note]);
 
   return (
-    <Box
-      w='100%'
-      maxWidth='520px'
-      mx='auto'
-      mb={8}
-      p={4}
-      py={2}
-      bg='brand.300'
-      borderRadius='32px'
-    >
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Input
-          mb={2}
-          p={0}
-          fontWeight='600'
-          border='none'
-          _placeholder={{ color: 'darken.100', fontWeight: '600' }}
-          _focus={{
-            boxShadow: 'none',
-          }}
-          type='text'
-          placeholder={toggle ? 'Title' : 'Take a note...'}
-          {...register('title', { value: note?.title })}
-          onFocus={() => onToggle(true)}
-        />
-        {toggle && (
-          <>
-            <Editor editorState={editorState} onChange={setEditorState} />
-            <Flex gap={2} justify='flex-end' mt={4}>
-              <Button
-                colorScheme='none'
-                color='darken.100'
-                onClick={closeHandler}
-              >
-                Close
-              </Button>
-              <Button type='submit' colorScheme='lavender' bg='brand.200'>
-                Save
-              </Button>
-            </Flex>
-          </>
-        )}
-      </form>
-    </Box>
+    <Center>
+      <Box
+        w='100%'
+        maxWidth='520px'
+        mx={4}
+        mb={8}
+        px={4}
+        py={2}
+        bg='brand.300'
+        borderRadius='lg'
+      >
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Input
+            p={0}
+            fontWeight='600'
+            border='none'
+            _placeholder={{ color: 'darken.100', fontWeight: '600' }}
+            _focus={{
+              boxShadow: 'none',
+            }}
+            type='text'
+            placeholder={toggle ? 'Title' : 'Take a note...'}
+            {...register('title', { value: note?.title })}
+            onFocus={() => onToggle(true)}
+          />
+          {toggle && (
+            <>
+              <Box mt={2}>
+                <Editor editorState={editorState} onChange={setEditorState} />
+              </Box>
+              <Flex gap={2} justify='flex-end' mt={4}>
+                <Button
+                  colorScheme='none'
+                  color='darken.100'
+                  onClick={closeHandler}
+                >
+                  Close
+                </Button>
+                <Button type='submit' colorScheme='lavender' bg='brand.200'>
+                  Save
+                </Button>
+              </Flex>
+            </>
+          )}
+        </form>
+      </Box>
+    </Center>
   );
 };
 

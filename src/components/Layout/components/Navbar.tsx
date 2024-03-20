@@ -23,8 +23,8 @@ const Navbar: React.FC = () => {
             p='16px'
             color='#FFFFFF'
             fontWeight={isActive ? 'bold' : 'normal'}
-            borderTopRightRadius='full'
-            borderBottomRightRadius='full'
+            borderTopRightRadius='lg'
+            borderBottomRightRadius='lg'
             bg={isActive ? 'brand.200' : 'transparent'}
             transition='all ease-in-out 0.3s'
             _hover={{
