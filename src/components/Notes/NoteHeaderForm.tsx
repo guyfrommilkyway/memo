@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Box, Flex, Center, Input } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { EditorState } from 'draft-js';
 import PropTypes from 'prop-types';
 
 import { Save, Close } from '@/components/Button';
@@ -45,8 +44,10 @@ const NoteHeaderForm: React.FC<Props> = props => {
         dispatch(note ? update({ ...note, ...payload }) : create(payload));
         onToggle(false);
         toastSuccess(note ? 'Note updated' : 'Note added');
+        setEditorState(renderEditorDefaultState);
         reset();
       } catch (error) {
+        setEditorState(renderEditorDefaultState);
         onToggle(false);
         toastError('Oops! An error occurred');
       }
@@ -55,9 +56,9 @@ const NoteHeaderForm: React.FC<Props> = props => {
   );
 
   const closeHandler = () => {
+    setEditorState(renderEditorDefaultState);
     onToggle(false);
     reset();
-    setEditorState(() => EditorState.createEmpty());
   };
 
   // set note
