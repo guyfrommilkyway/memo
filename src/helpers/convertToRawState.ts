@@ -1,4 +1,3 @@
-// packages
 import { EditorState, convertToRaw } from 'draft-js';
 
 const convertToRawState = (state: EditorState) => {
