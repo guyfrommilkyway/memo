@@ -25,25 +25,25 @@ import theme from '@/config/theme';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <Auth0Provider
+    {/* <Auth0Provider
       domain={import.meta.env.VITE_AUTH0_API}
       clientId={import.meta.env.VITE_AUTH_CLIENT_ID}
       authorizationParams={{
         redirect_uri: window.location.origin,
       }}
-    >
-      <Provider store={store}>
-        <PersistGate loading={<LoaderScreen />} persistor={persistor}>
-          <ChakraProvider theme={theme}>
-            <Suspense fallback={<LoaderScreen />}>
-              <HelmetProvider>
-                <App />
-                <ToastContainer />
-              </HelmetProvider>
-            </Suspense>
-          </ChakraProvider>
-        </PersistGate>
-      </Provider>
-    </Auth0Provider>
+    > */}
+    <Provider store={store}>
+      <PersistGate loading={<LoaderScreen />} persistor={persistor}>
+        <ChakraProvider theme={theme}>
+          <Suspense fallback={<LoaderScreen />}>
+            <HelmetProvider>
+              <App />
+              <ToastContainer />
+            </HelmetProvider>
+          </Suspense>
+        </ChakraProvider>
+      </PersistGate>
+    </Provider>
+    {/* </Auth0Provider> */}
   </React.StrictMode>,
 );

@@ -1,33 +1,37 @@
 // packages
 import React, { useState, useEffect, useCallback } from 'react';
-import { Box, Flex, Center, Input, Button } from '@chakra-ui/react';
+import { Box, Flex, Center, Input } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Editor, EditorState } from 'draft-js';
+import { EditorState } from 'draft-js';
 import PropTypes from 'prop-types';
 
-// helpers
+import { Save, Close } from '@/components/Button';
 import { useAppDispatch } from '@/hooks/redux';
 import { create, update } from '@/features/notes/notes-slice';
 import convertToEditorState from '@/helpers/convertToEditorState';
 import convertToRawState from '@/helpers/convertToRawState';
-
-// utils
 import { toastSuccess, toastError } from '@/utils/notifications';
+import { renderEditorDefaultState } from '@/constants/editor-state';
+import DraftEditor from '../DraftEditor';
 
-const NoteHeaderForm: React.FC<NoteHeaderFormProps> = props => {
+interface Props {
+  note?: Note | null;
+  toggle: boolean;
+  onToggle: (param: boolean) => void;
+}
+
+const NoteHeaderForm: React.FC<Props> = props => {
   const { note, toggle, onToggle } = props;
 
   // store
   const dispatch = useAppDispatch();
-  const [editorState, setEditorState] = useState(() =>
-    EditorState.createEmpty(),
-  );
+  const [editorState, setEditorState] = useState(renderEditorDefaultState);
 
   // hook form
-  const { register, handleSubmit, reset } = useForm<NoteFormInputs>();
+  const { register, handleSubmit, reset } = useForm<{ title: string }>();
 
   // submit handler
-  const onSubmit: SubmitHandler<NoteFormInputs> = useCallback(
+  const onSubmit: SubmitHandler<{ title: string }> = useCallback(
     data => {
       try {
         const payload = { ...data, body: convertToRawState(editorState) };
@@ -53,7 +57,7 @@ const NoteHeaderForm: React.FC<NoteHeaderFormProps> = props => {
   const closeHandler = () => {
     onToggle(false);
     reset();
-    setEditorState(EditorState.createEmpty());
+    setEditorState(() => EditorState.createEmpty());
   };
 
   // set note
@@ -64,45 +68,40 @@ const NoteHeaderForm: React.FC<NoteHeaderFormProps> = props => {
   return (
     <Center>
       <Box
-        w='100%'
+        w='full'
         maxWidth='520px'
-        mx={4}
-        mb={8}
-        px={4}
-        py={2}
-        bg='brand.300'
+        mx='md'
+        mb='3xl'
+        px='md'
+        py='sm'
+        bg='brand.200'
         borderRadius='lg'
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <Input
-            p={0}
-            fontWeight='600'
+            type='text'
+            p='none'
+            fontWeight='bold'
             border='none'
-            _placeholder={{ color: 'darken.100', fontWeight: '600' }}
+            placeholder={toggle ? 'Title' : 'Take a note...'}
+            _placeholder={{ color: 'darken.100', fontWeight: '500' }}
             _focus={{
               boxShadow: 'none',
             }}
-            type='text'
-            placeholder={toggle ? 'Title' : 'Take a note...'}
-            {...register('title', { value: note?.title })}
             onFocus={() => onToggle(true)}
+            {...register('title', { value: note?.title })}
           />
           {toggle && (
             <>
-              <Box mt={2}>
-                <Editor editorState={editorState} onChange={setEditorState} />
-              </Box>
-              <Flex gap={2} justify='flex-end' mt={4}>
-                <Button
-                  colorScheme='none'
-                  color='darken.100'
-                  onClick={closeHandler}
-                >
+              <DraftEditor
+                editorState={editorState}
+                onChange={setEditorState}
+              />
+              <Flex gap='xs' justify='flex-end' mt='xs'>
+                <Close color='darken.200' onClick={closeHandler}>
                   Close
-                </Button>
-                <Button type='submit' colorScheme='lavender' bg='brand.200'>
-                  Save
-                </Button>
+                </Close>
+                <Save>Save</Save>
               </Flex>
             </>
           )}

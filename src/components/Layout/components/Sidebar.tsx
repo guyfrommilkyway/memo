@@ -1,17 +1,17 @@
 // packages
 import React from 'react';
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 
-// components
-import Navbar from './Navbar';
 import Logo from '@/components/Logo';
+import Navbar from './Navbar';
+import Info from './Info';
 
 const Sidebar: React.FC = () => {
   return (
     <Flex
       as='section'
       pos='sticky'
-      top='0'
+      top={0}
       display={{
         base: 'none',
         lg: 'flex',
@@ -24,18 +24,11 @@ const Sidebar: React.FC = () => {
       h='full'
       minH='100vh'
     >
-      <Flex flexDir='column' gap='0' w='full'>
+      <Flex flexDir='column' gap='none' w='full'>
         <Logo />
         <Navbar />
       </Flex>
-      <Box p='16px'>
-        <Text textAlign='center' color='#FFFFFF' fontSize={12}>
-          Built using Vite, React and Chakra UI.
-        </Text>
-        <Text textAlign='center' color='#FFFFFF' fontSize={12}>
-          Made from Figma. Deployed with Netlify.
-        </Text>
-      </Box>
+      <Info />
     </Flex>
   );
 };

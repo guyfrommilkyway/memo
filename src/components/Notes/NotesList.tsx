@@ -1,13 +1,15 @@
 // packages
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Flex } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 
-const NotesList: React.FC<NotesListProps> = props => {
-  const { children } = props;
+interface Props {
+  children: ReactNode;
+}
 
+const NotesList: React.FC<Props> = ({ children }) => {
   return (
-    <Flex wrap='wrap' gap='24px' mb='32px' px='16px'>
+    <Flex wrap='wrap' gap='lg' mb='xl' px='md'>
       {children}
     </Flex>
   );
@@ -16,5 +18,5 @@ const NotesList: React.FC<NotesListProps> = props => {
 export default NotesList;
 
 NotesList.propTypes = {
-  children: PropTypes.any,
+  children: PropTypes.any.isRequired,
 };

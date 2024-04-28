@@ -2,9 +2,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
-const Head: React.FC<MetaProps> = props => {
-  const { title } = props;
-
+const Head: React.FC<MetaProps> = ({ title }) => {
   return (
     <Helmet>
       <title>{title}</title>

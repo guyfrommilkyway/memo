@@ -7,7 +7,7 @@ import NoteHeading from '@/components/Notes/NoteHeading';
 import NotesList from '@/components/Notes/NotesList';
 import NoteItem from '@/components/Notes/NoteItem';
 import NoteHeaderForm from '@/components/Notes/NoteHeaderForm';
-import NoteModalForm from '@/components/Notes/NoteModalForm';
+import NoteForm from '@/components/Notes/NoteForm';
 import CustomModal from '@/components/Modal';
 
 // helpers
@@ -130,7 +130,7 @@ const NotesPage: React.FC = () => {
       <CustomModal
         isOpen={isOpen}
         onClose={closeModalHandler}
-        body={<NoteModalForm note={selected} onClose={closeModalHandler} />}
+        body={<NoteForm note={selected} onClose={closeModalHandler} />}
       />
     </Fragment>
   );
