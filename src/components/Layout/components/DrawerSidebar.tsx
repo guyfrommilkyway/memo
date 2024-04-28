@@ -1,18 +1,17 @@
 // packages
 import React from 'react';
-import {
-  Flex,
-  Drawer,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
-} from '@chakra-ui/react';
+import { Flex, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton } from '@chakra-ui/react';
 
 import Logo from '@/components/Logo';
 import Navbar from './Navbar';
 import Info from './Info';
 
-const DrawerSidebar: React.FC<DrawerSidebarProps> = props => {
+interface Props {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const DrawerSidebar: React.FC<Props> = props => {
   const { isOpen, onClose } = props;
 
   return (
@@ -20,15 +19,7 @@ const DrawerSidebar: React.FC<DrawerSidebarProps> = props => {
       <DrawerOverlay />
       <DrawerContent>
         <DrawerCloseButton />
-        <Flex
-          as='section'
-          flexDir='column'
-          justify='space-between'
-          w='full'
-          h='full'
-          py='xs'
-          overflow='hidden'
-        >
+        <Flex as='section' flexDir='column' justify='space-between' w='full' h='full' py='xs' overflow='hidden'>
           <Flex flexDir='column' gap='none' w='full'>
             <Logo />
             <Navbar />

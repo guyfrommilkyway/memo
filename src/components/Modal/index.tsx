@@ -10,7 +10,15 @@ import {
 } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 
-const CustomModal: React.FC<ModalProps> = props => {
+interface Props {
+  header?: Component;
+  body?: Component;
+  footer?: Component;
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const CustomModal: React.FC<Props> = props => {
   const { header, body, footer, isOpen, onClose } = props;
 
   return (

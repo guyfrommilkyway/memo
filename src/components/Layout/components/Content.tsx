@@ -1,10 +1,12 @@
 // packages
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Box } from '@chakra-ui/react';
 
-const Content: React.FC<ChildrenProps> = props => {
-  const { children } = props;
+interface Props {
+  children: ReactNode;
+}
 
+const Content: React.FC<Props> = ({ children }) => {
   return (
     <Box as='section' w='full' my='32px'>
       {children}
