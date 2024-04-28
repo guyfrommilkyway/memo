@@ -9,11 +9,12 @@ import {
   ModalCloseButton,
 } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
+import { ReactNode } from 'react';
 
 interface Props {
-  header?: Component;
-  body?: Component;
-  footer?: Component;
+  header?: ReactNode;
+  body?: ReactNode;
+  footer?: ReactNode;
   isOpen: boolean;
   onClose: () => void;
 }
