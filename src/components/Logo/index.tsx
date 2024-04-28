@@ -7,12 +7,7 @@ const Logo: React.FC = () => {
   return (
     <Link to='/'>
       <Flex align='center' h='80px' px='16px'>
-        <Text
-          color='brand.400'
-          fontSize='3xl'
-          fontWeight='bold'
-          userSelect='none'
-        >
+        <Text color='brand.400' fontSize='3xl' fontWeight='bold' userSelect='none'>
           Memo
         </Text>
       </Flex>

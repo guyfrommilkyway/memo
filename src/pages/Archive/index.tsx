@@ -64,11 +64,7 @@ const ArchivePage: React.FC = () => {
           })}
         </NotesList>
       )}
-      <CustomModal
-        isOpen={isOpen}
-        onClose={closeHandler}
-        body={<NoteForm note={selected} onClose={closeHandler} />}
-      />
+      <CustomModal isOpen={isOpen} onClose={closeHandler} body={<NoteForm note={selected} onClose={closeHandler} />} />
     </Fragment>
   );
 };

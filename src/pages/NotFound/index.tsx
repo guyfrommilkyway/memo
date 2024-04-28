@@ -26,9 +26,7 @@ const NotFoundPage: React.FC = () => {
           </Text>{' '}
           That&apos;s an error.
         </Text>
-        <Text color='#FFFFFF'>
-          The requested url was not found on the server.
-        </Text>
+        <Text color='#FFFFFF'>The requested url was not found on the server.</Text>
       </Box>
     </Fragment>
   );

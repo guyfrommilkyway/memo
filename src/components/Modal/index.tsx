@@ -9,8 +9,17 @@ import {
   ModalCloseButton,
 } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
+import { ReactNode } from 'react';
 
-const CustomModal: React.FC<ModalProps> = props => {
+interface Props {
+  header?: ReactNode;
+  body?: ReactNode;
+  footer?: ReactNode;
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const CustomModal: React.FC<Props> = props => {
   const { header, body, footer, isOpen, onClose } = props;
 
   return (

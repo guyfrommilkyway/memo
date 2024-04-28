@@ -1,10 +1,12 @@
 // packages
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Flex } from '@chakra-ui/react';
 
-const Container: React.FC<ChildrenProps> = props => {
-  const { children } = props;
+interface Props {
+  children: ReactNode;
+}
 
+const Container: React.FC<Props> = ({ children }) => {
   return (
     <Flex
       as='main'

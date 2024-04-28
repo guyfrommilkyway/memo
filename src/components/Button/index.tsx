@@ -12,12 +12,7 @@ const Save: React.FC<ButtonProps> = props => {
 
 const Close: React.FC<ButtonProps> = props => {
   return (
-    <Button
-      variant='ghost'
-      colorScheme='transparent'
-      bg='transparent'
-      {...props}
-    >
+    <Button variant='ghost' colorScheme='transparent' bg='transparent' {...props}>
       Close
     </Button>
   );

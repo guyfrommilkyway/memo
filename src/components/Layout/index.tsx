@@ -13,9 +13,7 @@ import useSidebar from '@/hooks/useSidebar';
 const Layout: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { toggle, toggleHandler } = useSidebar();
-  const [screenWidth, setScreenWidth] = useState<number>(
-    document.documentElement.clientWidth,
-  );
+  const [screenWidth, setScreenWidth] = useState<number>(document.documentElement.clientWidth);
 
   useLayoutEffect(() => {
     const handleResize = () => {
