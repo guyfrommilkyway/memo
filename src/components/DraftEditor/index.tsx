@@ -1,17 +1,30 @@
 // packages
 import React from 'react';
 import { Box } from '@chakra-ui/react';
-import { Editor, EditorState } from 'draft-js';
+import { Editor, EditorState, DraftHandleValue } from 'draft-js';
+import DraftToolbar from './components/DraftToolbar';
 
-interface Props {
-  editorState: EditorState;
-  onChange: React.Dispatch<React.SetStateAction<EditorState>>;
+interface ToolbarProps {
+  toggleInlineStyle: (style: string) => void;
+  toggleBlockType: (style: string) => void;
 }
 
-const DraftEditor: React.FC<Props> = ({ editorState, onChange }) => {
+interface EditorProps {
+  editorState: EditorState;
+  onChange: React.Dispatch<React.SetStateAction<EditorState>>;
+  handleKeyCommand?: (command: string, editorState: Required<EditorState>) => DraftHandleValue;
+}
+
+interface Props {
+  toolbarProps: ToolbarProps;
+  editorProps: EditorProps;
+}
+
+const DraftEditor: React.FC<Props> = ({ toolbarProps, editorProps }) => {
   return (
-    <Box mt='sm' mb='md' p='sm' border='1px solid #676767' rounded='lg'>
-      <Editor editorState={editorState} onChange={onChange} />
+    <Box mt='sm' mb='md' p='sm' border='1px solid #787878' rounded='lg'>
+      <DraftToolbar {...toolbarProps} />
+      <Editor {...editorProps} />
     </Box>
   );
 };
