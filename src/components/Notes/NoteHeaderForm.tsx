@@ -1,17 +1,18 @@
 // packages
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { Box, Flex, Center, Input } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import PropTypes from 'prop-types';
 
+import DraftEditor from '../DraftEditor';
 import { Save, Close } from '@/components/Button';
 import { useAppDispatch } from '@/hooks/redux';
+import useDraftEditor from '@/hooks/useDraftEditor';
 import { create, update } from '@/features/notes/notes-slice';
 import convertToEditorState from '@/helpers/convertToEditorState';
 import convertToRawState from '@/helpers/convertToRawState';
 import { toastSuccess, toastError } from '@/utils/notifications';
 import { renderEditorDefaultState } from '@/constants/editor-state';
-import DraftEditor from '../DraftEditor';
 
 interface Props {
   note?: Note | null;
@@ -19,23 +20,16 @@ interface Props {
   onToggle: (param: boolean) => void;
 }
 
-const NoteHeaderForm: React.FC<Props> = props => {
-  const { note, toggle, onToggle } = props;
-
-  // store
+const NoteHeaderForm: React.FC<Props> = ({ note, toggle, onToggle }) => {
   const dispatch = useAppDispatch();
-  const [editorState, setEditorState] = useState(renderEditorDefaultState);
-
-  // hook form
+  const { editorState, setEditorState, handleKeyCommand, toggleInlineStyle, toggleBlockType } = useDraftEditor();
   const { register, handleSubmit, reset } = useForm<{ title: string }>();
 
-  // submit handler
   const onSubmit: SubmitHandler<{ title: string }> = useCallback(
     data => {
       try {
         const payload = { ...data, body: convertToRawState(editorState) };
 
-        // guard
         if (!payload.title && !payload.body.blocks[0].text) {
           onToggle(false);
           return;
@@ -52,36 +46,27 @@ const NoteHeaderForm: React.FC<Props> = props => {
         toastError('Oops! An error occurred');
       }
     },
-    [editorState, note, dispatch, onToggle, reset],
+    [editorState, setEditorState, note, dispatch, onToggle, reset],
   );
 
-  const closeHandler = () => {
+  const handleClose = () => {
     setEditorState(renderEditorDefaultState);
     onToggle(false);
     reset();
   };
 
-  // set note
   useEffect(() => {
     if (note) setEditorState(convertToEditorState(note.body));
-  }, [note]);
+  }, [note, setEditorState]);
 
   return (
     <Center>
-      <Box
-        w='full'
-        maxWidth='520px'
-        mx='md'
-        mb='3xl'
-        px='md'
-        py='sm'
-        bg='brand.200'
-        borderRadius='lg'
-      >
+      <Box w='full' maxWidth='520px' mx='md' mb='3xl' px='md' py='sm' bg='brand.200' borderRadius='lg'>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Input
             type='text'
             p='none'
+            fontSize='lg'
             fontWeight='bold'
             border='none'
             placeholder={toggle ? 'Title' : 'Take a note...'}
@@ -95,14 +80,19 @@ const NoteHeaderForm: React.FC<Props> = props => {
           {toggle && (
             <>
               <DraftEditor
-                editorState={editorState}
-                onChange={setEditorState}
+                toolbarProps={{
+                  toggleInlineStyle,
+                  toggleBlockType,
+                }}
+                editorProps={{
+                  editorState,
+                  onChange: setEditorState,
+                  handleKeyCommand,
+                }}
               />
               <Flex gap='xs' justify='flex-end' mt='xs'>
-                <Close color='darken.200' onClick={closeHandler}>
-                  Close
-                </Close>
-                <Save>Save</Save>
+                <Close color='darken.200' onClick={handleClose} />
+                <Save />
               </Flex>
             </>
           )}

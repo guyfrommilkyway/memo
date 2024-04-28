@@ -1,5 +1,5 @@
 // packages
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { Flex, Input } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import PropTypes from 'prop-types';
@@ -7,11 +7,11 @@ import PropTypes from 'prop-types';
 import DraftEditor from '../DraftEditor';
 import { Save, Close } from '@/components/Button';
 import { useAppDispatch } from '@/hooks/redux';
+import useDraftEditor from '@/hooks/useDraftEditor';
 import { create, update } from '@/features/notes/notes-slice';
 import convertToEditorState from '@/helpers/convertToEditorState';
 import convertToRawState from '@/helpers/convertToRawState';
 import { toastSuccess, toastError } from '@/utils/notifications';
-import { renderEditorDefaultState } from '@/constants/editor-state';
 
 interface Props {
   note?: Note | null;
@@ -20,7 +20,8 @@ interface Props {
 
 const NoteForm: React.FC<Props> = ({ note, onClose }) => {
   const dispatch = useAppDispatch();
-  const [editorState, setEditorState] = useState(renderEditorDefaultState);
+  const { editorState, setEditorState, handleKeyCommand, toggleInlineStyle, toggleBlockType } = useDraftEditor();
+
   const { register, handleSubmit } = useForm<{ title: string }>();
 
   const onSubmit: SubmitHandler<{ title: string }> = useCallback(
@@ -46,7 +47,7 @@ const NoteForm: React.FC<Props> = ({ note, onClose }) => {
 
   useEffect(() => {
     if (note) setEditorState(convertToEditorState(note.body));
-  }, [note]);
+  }, [note, setEditorState]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -54,6 +55,7 @@ const NoteForm: React.FC<Props> = ({ note, onClose }) => {
         type='text'
         mb='xs'
         p='none'
+        fontSize='lg'
         fontWeight='600'
         border='none'
         placeholder='Title'
@@ -63,13 +65,21 @@ const NoteForm: React.FC<Props> = ({ note, onClose }) => {
         }}
         {...register('title', { value: note?.title })}
       />
-      <DraftEditor editorState={editorState} onChange={setEditorState} />
+      <DraftEditor
+        toolbarProps={{
+          toggleInlineStyle,
+          toggleBlockType,
+        }}
+        editorProps={{
+          editorState,
+          onChange: setEditorState,
+          handleKeyCommand,
+        }}
+      />
       <Flex justify='flex-end'>
         <Flex justify='flex-end' gap='xs' mt='xs'>
-          <Close color='darken.200' onClick={onClose}>
-            Close
-          </Close>
-          <Save type='submit'>Save</Save>
+          <Close color='darken.200' onClick={onClose} />
+          <Save />
         </Flex>
       </Flex>
     </form>
