@@ -72,14 +72,8 @@ const NotesPage: React.FC = () => {
     onClose();
   };
 
-  const pinned = useMemo(
-    () => notes.filter((note: Note) => note.pinned),
-    [notes],
-  );
-  const others = useMemo(
-    () => notes.filter((note: Note) => !note.pinned),
-    [notes],
-  );
+  const pinned = useMemo(() => notes.filter((note: Note) => note.pinned), [notes]);
+  const others = useMemo(() => notes.filter((note: Note) => !note.pinned), [notes]);
 
   return (
     <Fragment>

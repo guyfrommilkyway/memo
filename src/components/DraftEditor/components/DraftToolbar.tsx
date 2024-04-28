@@ -2,7 +2,13 @@
 import React from 'react';
 import { Flex, Button } from '@chakra-ui/react';
 
-import { MdFormatBold, MdFormatItalic, MdFormatUnderlined, MdFormatListBulleted, MdFormatListNumbered } from 'react-icons/md';
+import {
+  MdFormatBold,
+  MdFormatItalic,
+  MdFormatUnderlined,
+  MdFormatListBulleted,
+  MdFormatListNumbered,
+} from 'react-icons/md';
 
 interface Props {
   toggleInlineStyle: (style: string) => void;

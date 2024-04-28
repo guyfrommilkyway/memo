@@ -12,9 +12,7 @@ const Navbar: React.FC = () => {
   return (
     <VStack alignItems='flex-start' gap={0}>
       {NAV_ITEMS.map((item, index) => {
-        return (
-          <NavItem key={index} active={pathname === item.link} {...item} />
-        );
+        return <NavItem key={index} active={pathname === item.link} {...item} />;
       })}
     </VStack>
   );

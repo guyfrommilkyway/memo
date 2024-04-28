@@ -5,13 +5,7 @@ import { Box, Flex, Text } from '@chakra-ui/react';
 const Footer: React.FC = () => {
   return (
     <Box as='footer' p={4}>
-      <Flex
-        direction='column'
-        justify='center'
-        alignItems='center'
-        gap={0}
-        h='100%'
-      >
+      <Flex direction='column' justify='center' alignItems='center' gap={0} h='100%'>
         <Text textAlign='center' fontSize={14}>
           Built using Vite, React and Chakra UI.
         </Text>
