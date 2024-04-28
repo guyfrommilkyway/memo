@@ -3,12 +3,11 @@ import React, { useState, useLayoutEffect, useCallback } from 'react';
 import { Flex, useDisclosure } from '@chakra-ui/react';
 import { Outlet } from 'react-router-dom';
 
-// components
 import Container from './components/Container';
 import Content from './components/Content';
 import Sidebar from './components/Sidebar';
 import DrawerSidebar from './components/DrawerSidebar';
-import Header from './components/Header';
+import Topbar from './components/Topbar';
 import useSidebar from '@/hooks/useSidebar';
 
 const Layout: React.FC = () => {
@@ -45,7 +44,7 @@ const Layout: React.FC = () => {
       {toggle && <Sidebar />}
       <DrawerSidebar isOpen={isOpen} onClose={onClose} />
       <Flex as='section' flexDirection='column' w='full' h='100%' minH='100vh'>
-        <Header onToggle={onToggle} />
+        <Topbar onToggle={onToggle} />
         <Content>
           <Outlet />
         </Content>

@@ -4,7 +4,7 @@ import React, { Fragment } from 'react';
 // components
 import NotesList from '@/components/Notes/NotesList';
 import NoteItem from '@/components/Notes/NoteItem';
-import NoteModalForm from '@/components/Notes/NoteModalForm';
+import NoteForm from '@/components/Notes/NoteForm';
 import CustomModal from '@/components/Modal';
 
 // helpers
@@ -67,7 +67,7 @@ const ArchivePage: React.FC = () => {
       <CustomModal
         isOpen={isOpen}
         onClose={closeHandler}
-        body={<NoteModalForm note={selected} onClose={closeHandler} />}
+        body={<NoteForm note={selected} onClose={closeHandler} />}
       />
     </Fragment>
   );

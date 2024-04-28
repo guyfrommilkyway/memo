@@ -16,10 +16,10 @@ const CustomModal: React.FC<ModalProps> = props => {
   return (
     <Modal size='xl' isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent pt={8} bg='brand.300' borderRadius='32px'>
+      <ModalContent bg='brand.200' rounded='lg'>
         {header && <ModalHeader>{header}</ModalHeader>}
         <ModalCloseButton />
-        {body && <ModalBody py={4}>{body}</ModalBody>}
+        {body && <ModalBody p='md'>{body}</ModalBody>}
         {footer && <ModalFooter>{footer}</ModalFooter>}
       </ModalContent>
     </Modal>

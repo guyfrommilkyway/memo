@@ -8,7 +8,7 @@ const Logo: React.FC = () => {
     <Link to='/'>
       <Flex align='center' h='80px' px='16px'>
         <Text
-          color='#EEF0F2'
+          color='brand.400'
           fontSize='3xl'
           fontWeight='bold'
           userSelect='none'

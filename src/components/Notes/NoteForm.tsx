@@ -1,38 +1,33 @@
 // packages
 import React, { useState, useEffect, useCallback } from 'react';
-import { Flex, Input, Button } from '@chakra-ui/react';
+import { Flex, Input } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Editor, EditorState } from 'draft-js';
 import PropTypes from 'prop-types';
 
-// helpers
+import DraftEditor from '../DraftEditor';
+import { Save, Close } from '@/components/Button';
 import { useAppDispatch } from '@/hooks/redux';
 import { create, update } from '@/features/notes/notes-slice';
 import convertToEditorState from '@/helpers/convertToEditorState';
 import convertToRawState from '@/helpers/convertToRawState';
-
-// utils
 import { toastSuccess, toastError } from '@/utils/notifications';
+import { renderEditorDefaultState } from '@/constants/editor-state';
 
-const NoteForm: React.FC<NoteModalFormProps> = props => {
-  const { note, onClose } = props;
+interface Props {
+  note?: Note | null;
+  onClose: () => void;
+}
 
-  // store
+const NoteForm: React.FC<Props> = ({ note, onClose }) => {
   const dispatch = useAppDispatch();
-  const [editorState, setEditorState] = useState(() =>
-    EditorState.createEmpty(),
-  );
+  const [editorState, setEditorState] = useState(renderEditorDefaultState);
+  const { register, handleSubmit } = useForm<{ title: string }>();
 
-  // hook form
-  const { register, handleSubmit } = useForm<NoteFormInputs>();
-
-  // submit handler
-  const onSubmit: SubmitHandler<NoteFormInputs> = useCallback(
+  const onSubmit: SubmitHandler<{ title: string }> = useCallback(
     data => {
       try {
         const payload = { ...data, body: convertToRawState(editorState) };
 
-        // guard
         if (!payload.title && !payload.body.blocks[0].text) {
           onClose();
           return;
@@ -49,7 +44,6 @@ const NoteForm: React.FC<NoteModalFormProps> = props => {
     [editorState, note, dispatch, onClose],
   );
 
-  // set note
   useEffect(() => {
     if (note) setEditorState(convertToEditorState(note.body));
   }, [note]);
@@ -57,25 +51,25 @@ const NoteForm: React.FC<NoteModalFormProps> = props => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Input
-        mb={2}
-        p={0}
+        type='text'
+        mb='xs'
+        p='none'
         fontWeight='600'
         border='none'
+        placeholder='Title'
+        _placeholder={{ color: 'darken.100', fontWeight: '500' }}
         _focus={{
           boxShadow: 'none',
         }}
-        type='text'
         {...register('title', { value: note?.title })}
       />
-      <Editor editorState={editorState} onChange={setEditorState} />
+      <DraftEditor editorState={editorState} onChange={setEditorState} />
       <Flex justify='flex-end'>
-        <Flex gap={2} justify='flex-end' mt={4}>
-          <Button colorScheme='none' color='darken.100' onClick={onClose}>
+        <Flex justify='flex-end' gap='xs' mt='xs'>
+          <Close color='darken.200' onClick={onClose}>
             Close
-          </Button>
-          <Button type='submit' colorScheme='lavender' bg='brand.200'>
-            Save
-          </Button>
+          </Close>
+          <Save type='submit'>Save</Save>
         </Flex>
       </Flex>
     </form>
