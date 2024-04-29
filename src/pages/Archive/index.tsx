@@ -1,46 +1,34 @@
 // packages
 import React, { Fragment } from 'react';
 
-// components
+import Head from '@/components/Head';
 import NotesList from '@/components/Notes/NotesList';
 import NoteItem from '@/components/Notes/NoteItem';
 import NoteForm from '@/components/Notes/NoteForm';
 import CustomModal from '@/components/Modal';
-
-// helpers
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { unarchive, move } from '@/features/notes/notes-slice';
-
-// utils
 import useModal from '@/hooks/useModal';
 import useSelect from '@/hooks/useSelect';
 import { toastSuccess } from '@/utils/notifications';
 
-// components
-import Head from '@/components/Head';
-
 const ArchivePage: React.FC = () => {
   const { isOpen, onOpen, onClose } = useModal();
   const { selected, selectHandler, clearSelectHandler } = useSelect();
-
-  // store
   const { archive } = useAppSelector(state => state.notes);
   const dispatch = useAppDispatch();
 
-  // archive handler
-  const unarchiveHandler = (data: Note) => {
+  const handleUnarchive = (data: Note) => {
     dispatch(unarchive({ from: 'ARCHIVE', data }));
     toastSuccess('Note unarchived');
   };
 
-  // remove handler
-  const removeHandler = (data: Note) => {
+  const handleRemove = (data: Note) => {
     dispatch(move({ from: 'ARCHIVE', data }));
     toastSuccess('Note removed');
   };
 
-  // close modal handler
-  const closeHandler = () => {
+  const handleClose = () => {
     clearSelectHandler();
     onClose();
   };
@@ -56,15 +44,15 @@ const ArchivePage: React.FC = () => {
                 key={note.id}
                 note={note}
                 onOpen={onOpen}
-                onUnarchive={() => unarchiveHandler(note)}
-                onRemove={() => removeHandler(note)}
+                onUnarchive={() => handleUnarchive(note)}
+                onRemove={() => handleRemove(note)}
                 onSelect={selectHandler}
               />
             );
           })}
         </NotesList>
       )}
-      <CustomModal isOpen={isOpen} onClose={closeHandler} body={<NoteForm note={selected} onClose={closeHandler} />} />
+      <CustomModal isOpen={isOpen} onClose={handleClose} body={<NoteForm note={selected} onClose={handleClose} />} />
     </Fragment>
   );
 };

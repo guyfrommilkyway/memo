@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { EditorState, RichUtils, DraftHandleValue } from 'draft-js';
 
-import { renderEditorDefaultState } from '@/constants/editor-state';
+import renderEditorDefaultState from '@/helpers/renderEditorDefaultState';
 
 const useDraftEditor = () => {
   const [editorState, setEditorState] = useState(renderEditorDefaultState);

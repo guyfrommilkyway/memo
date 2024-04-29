@@ -9,10 +9,10 @@ import { Save, Close } from '@/components/Button';
 import { useAppDispatch } from '@/hooks/redux';
 import useDraftEditor from '@/hooks/useDraftEditor';
 import { create, update } from '@/features/notes/notes-slice';
+import renderEditorDefaultState from '@/helpers/renderEditorDefaultState';
 import convertToEditorState from '@/helpers/convertToEditorState';
 import convertToRawState from '@/helpers/convertToRawState';
 import { toastSuccess, toastError } from '@/utils/notifications';
-import { renderEditorDefaultState } from '@/constants/editor-state';
 
 interface Props {
   note?: Note | null;

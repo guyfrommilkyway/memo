@@ -1,4 +1,3 @@
-// packages
 import { EditorState, RawDraftContentState, convertFromRaw } from 'draft-js';
 
 const convertToEditorState = (raw: RawDraftContentState) => {

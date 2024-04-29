@@ -2,18 +2,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 
-// utils
+import REDUX_DEFAULT_STATE from '@/constants/redux';
 import { getCurrentDT } from '@/utils/getCurrentDT';
-
-const initialState: Notes = {
-  notes: [],
-  trash: [],
-  archive: [],
-};
 
 const notesSlice = createSlice({
   name: 'notes',
-  initialState,
+  initialState: REDUX_DEFAULT_STATE,
   reducers: {
     create(state, action) {
       const data: Note = {
@@ -23,7 +17,6 @@ const notesSlice = createSlice({
         dateUpdated: getCurrentDT(),
         pinned: false,
       };
-
       state.notes.unshift(data);
     },
     update(state, action) {
@@ -42,7 +35,6 @@ const notesSlice = createSlice({
         default:
           break;
       }
-
       state.trash.unshift(action.payload.data);
     },
     archive(state, action) {
