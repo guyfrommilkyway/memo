@@ -7,7 +7,7 @@ import NoteItem from '@/components/Notes/NoteItem';
 import NoteForm from '@/components/Notes/NoteForm';
 import CustomModal from '@/components/Modal';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-import { unarchive, move } from '@/features/notes/notes-slice';
+import { unarchive, move } from '@/features/notes-slice';
 import useModal from '@/hooks/useModal';
 import useSelect from '@/hooks/useSelect';
 import { toastSuccess } from '@/utils/notifications';

@@ -11,7 +11,7 @@ import NoteForm from '@/components/Notes/NoteForm';
 import CustomModal from '@/components/Modal';
 
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-import { pin, unpin, move, archive } from '@/features/notes/notes-slice';
+import { pin, unpin, move, archive } from '@/features/notes-slice';
 import useModal from '@/hooks/useModal';
 import useSelect from '@/hooks/useSelect';
 import useToggle from '@/hooks/useToggle';

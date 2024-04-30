@@ -17,6 +17,7 @@ const NavItem: React.FC<Props> = memo(({ name, link, active = false }) => {
       to={link}
       w='100%'
       p='16px'
+      color={active ? 'whiten.100' : 'darken.500'}
       fontWeight={active ? 'bold' : 'normal'}
       borderTopRightRadius='xl'
       borderBottomRightRadius='xl'

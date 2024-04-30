@@ -80,7 +80,7 @@ const NoteItem: React.FC<Props> = memo(
       >
         <Flex flexDir='column' justify='space-between' gap='md'>
           <Box pos='relative' w='100%' mb='md'>
-            <Heading as='h1' mb='md' color='darken.300' fontSize='lg'>
+            <Heading as='h1' minH='24px' mb='md' color='darken.300' fontSize='lg'>
               {note?.title}
             </Heading>
             <Box
