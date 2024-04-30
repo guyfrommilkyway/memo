@@ -27,9 +27,9 @@ const TopbarMenu: React.FC<Props> = ({ onLogout }) => {
         </MenuItem>
         <MenuItem bg='brand.100' _hover={{ bg: 'transparent' }}>
           <Button
-            variant='outline'
             size='sm'
             colorScheme='red'
+            w='full'
             onClick={() => onLogout({ logoutParams: { returnTo: window.location.origin } })}
           >
             Log out
