@@ -12,7 +12,7 @@ interface Props {
 }
 
 const Topbar: React.FC<Props> = ({ onToggle }) => {
-  const { isAuthenticated, isLoading, logout } = useAuth0();
+  const { isAuthenticated, isLoading, logout, user } = useAuth0();
 
   return (
     <Flex
@@ -31,7 +31,7 @@ const Topbar: React.FC<Props> = ({ onToggle }) => {
       <Flex align='center' cursor='pointer' userSelect='none' onClick={onToggle}>
         <MdMenu fill='#414141' size={24} />
       </Flex>
-      {isAuthenticated && !isLoading ? <TopbarMenu onLogout={logout} /> : <LoginButton />}
+      {isAuthenticated && user && !isLoading ? <TopbarMenu onLogout={logout} user={user} /> : <LoginButton />}
     </Flex>
   );
 };
