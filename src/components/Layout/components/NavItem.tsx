@@ -1,5 +1,5 @@
 // packages
-import React, { memo } from 'react';
+import React from 'react';
 import { Link } from '@chakra-ui/react';
 import { Link as RLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -10,7 +10,7 @@ interface Props {
   active: boolean;
 }
 
-const NavItem: React.FC<Props> = memo(({ name, link, active = false }) => {
+const NavItem: React.FC<Props> = ({ name, link, active = false }) => {
   return (
     <Link
       as={RLink}
@@ -31,7 +31,7 @@ const NavItem: React.FC<Props> = memo(({ name, link, active = false }) => {
       {name}
     </Link>
   );
-});
+};
 
 export default NavItem;
 

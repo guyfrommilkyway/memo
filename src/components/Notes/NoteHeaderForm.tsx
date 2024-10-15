@@ -1,5 +1,5 @@
 // packages
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import { Box, Flex, Center, Input } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import PropTypes from 'prop-types';
@@ -25,29 +25,26 @@ const NoteHeaderForm: React.FC<Props> = ({ note, toggle, onToggle }) => {
   const { editorState, setEditorState, handleKeyCommand, toggleInlineStyle, toggleBlockType } = useDraftEditor();
   const { register, handleSubmit, reset } = useForm<{ title: string }>();
 
-  const onSubmit: SubmitHandler<{ title: string }> = useCallback(
-    data => {
-      try {
-        const payload = { ...data, body: convertToRawState(editorState) };
+  const onSubmit: SubmitHandler<{ title: string }> = data => {
+    try {
+      const payload = { ...data, body: convertToRawState(editorState) };
 
-        if (!payload.title && !payload.body.blocks[0].text) {
-          onToggle(false);
-          return;
-        }
-
-        dispatch(note ? update({ ...note, ...payload }) : create(payload));
+      if (!payload.title && !payload.body.blocks[0].text) {
         onToggle(false);
-        toastSuccess(note ? 'Note updated' : 'Note added');
-        setEditorState(renderEditorDefaultState);
-        reset();
-      } catch (error) {
-        setEditorState(renderEditorDefaultState);
-        onToggle(false);
-        toastError('Oops! An error occurred');
+        return;
       }
-    },
-    [editorState, setEditorState, note, dispatch, onToggle, reset],
-  );
+
+      dispatch(note ? update({ ...note, ...payload }) : create(payload));
+      onToggle(false);
+      toastSuccess(note ? 'Note updated' : 'Note added');
+      setEditorState(renderEditorDefaultState);
+      reset();
+    } catch (error) {
+      setEditorState(renderEditorDefaultState);
+      onToggle(false);
+      toastError('Oops! An error occurred');
+    }
+  };
 
   const handleClose = () => {
     setEditorState(renderEditorDefaultState);

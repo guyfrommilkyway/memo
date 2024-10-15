@@ -1,5 +1,5 @@
 // packages
-import React, { Fragment, useCallback, useMemo } from 'react';
+import React, { Fragment, useMemo } from 'react';
 
 // components
 import Head from '@/components/Head';
@@ -24,37 +24,25 @@ const NotesPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const { toggle, toggleHandler } = useToggle();
 
-  const pinHandler = useCallback(
-    (data: Note) => {
-      dispatch(pin(data));
-      toastSuccess('Note pinned');
-    },
-    [dispatch],
-  );
+  const pinHandler = (data: Note) => {
+    dispatch(pin(data));
+    toastSuccess('Note pinned');
+  };
 
-  const unpinHandler = useCallback(
-    (data: Note) => {
-      dispatch(unpin(data));
-      toastSuccess('Note unpinned');
-    },
-    [dispatch],
-  );
+  const unpinHandler = (data: Note) => {
+    dispatch(unpin(data));
+    toastSuccess('Note unpinned');
+  };
 
-  const archiveHandler = useCallback(
-    (data: Note) => {
-      dispatch(archive({ from: 'NOTES', data }));
-      toastSuccess('Note archived');
-    },
-    [dispatch],
-  );
+  const archiveHandler = (data: Note) => {
+    dispatch(archive({ from: 'NOTES', data }));
+    toastSuccess('Note archived');
+  };
 
-  const removeHandler = useCallback(
-    (data: Note) => {
-      dispatch(move({ from: 'NOTES', data }));
-      toastSuccess('Note removed');
-    },
-    [dispatch],
-  );
+  const removeHandler = (data: Note) => {
+    dispatch(move({ from: 'NOTES', data }));
+    toastSuccess('Note removed');
+  };
 
   const closeModalHandler = () => {
     clearSelectHandler();

@@ -1,5 +1,5 @@
 // packages
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import { Flex, Input } from '@chakra-ui/react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import PropTypes from 'prop-types';
@@ -24,26 +24,23 @@ const NoteForm: React.FC<Props> = ({ note, onClose }) => {
 
   const { register, handleSubmit } = useForm<{ title: string }>();
 
-  const onSubmit: SubmitHandler<{ title: string }> = useCallback(
-    data => {
-      try {
-        const payload = { ...data, body: convertToRawState(editorState) };
+  const onSubmit: SubmitHandler<{ title: string }> = data => {
+    try {
+      const payload = { ...data, body: convertToRawState(editorState) };
 
-        if (!payload.title && !payload.body.blocks[0].text) {
-          onClose();
-          return;
-        }
-
-        dispatch(note ? update({ ...note, ...payload }) : create(payload));
+      if (!payload.title && !payload.body.blocks[0].text) {
         onClose();
-        toastSuccess(note ? 'Note updated' : 'Note added');
-      } catch (error) {
-        onClose();
-        toastError('Oops! An error occurred');
+        return;
       }
-    },
-    [editorState, note, dispatch, onClose],
-  );
+
+      dispatch(note ? update({ ...note, ...payload }) : create(payload));
+      onClose();
+      toastSuccess(note ? 'Note updated' : 'Note added');
+    } catch (error) {
+      onClose();
+      toastError('Oops! An error occurred');
+    }
+  };
 
   useEffect(() => {
     if (note) setEditorState(convertToEditorState(note.body));

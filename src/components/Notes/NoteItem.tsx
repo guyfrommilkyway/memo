@@ -1,5 +1,5 @@
 // packages
-import React, { memo, useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Box, Flex, Heading } from '@chakra-ui/react';
 import { EditorState, convertFromRaw } from 'draft-js';
 import { convertToHTML } from 'draft-convert';
@@ -29,147 +29,155 @@ interface Props {
   onRestore?: () => void;
 }
 
-const NoteItem: React.FC<Props> = memo(
-  ({ note, onOpen, onSelect, onPin, onUnpin, onArchive, onUnarchive, onRemove, onRestore }) => {
-    const { pathname } = useLocation();
+const NoteItem: React.FC<Props> = ({
+  note,
+  onOpen,
+  onSelect,
+  onPin,
+  onUnpin,
+  onArchive,
+  onUnarchive,
+  onRemove,
+  onRestore,
+}) => {
+  const { pathname } = useLocation();
 
-    const bodyHTML: string | null = useMemo(() => {
-      if (!note) return '';
+  const bodyHTML: string | null = useMemo(() => {
+    if (!note) return '';
 
-      const convertedState = convertFromRaw(note.body);
-      const raw = EditorState.createWithContent(convertedState);
-      const html = convertToHTML(raw.getCurrentContent());
+    const convertedState = convertFromRaw(note.body);
+    const raw = EditorState.createWithContent(convertedState);
+    const html = convertToHTML(raw.getCurrentContent());
 
-      return html;
-    }, [note]);
+    return html;
+  }, [note]);
 
-    const createMarkup = useCallback(() => {
-      return {
-        __html: bodyHTML && DOMPurify.sanitize(bodyHTML),
-      };
-    }, [bodyHTML]);
+  const createMarkup = () => {
+    return {
+      __html: bodyHTML && DOMPurify.sanitize(bodyHTML),
+    };
+  };
 
-    return (
-      <Box
-        flex={{
-          'base': '1 0 100%',
-          'md': '1 0 100%',
-          'lg': '1 0 calc(50% - 12px)',
-          'xl': 'calc(33.333% - 16px)',
-          '2xl': '1 0 calc(25% - 24px)',
-        }}
-        gap='md'
-        maxW={{
-          'base': '100%',
-          'md': '100%',
-          'lg': 'calc(50% - 12px)',
-          'xl': 'calc(33.333% - 16px)',
-          '2xl': 'calc(25% - 16px)',
-        }}
-        h='fit-content'
-        p='md'
-        rounded='lg'
-        bg='brand.200'
-        overflow='hidden'
-        cursor='pointer'
-        onClick={() => {
-          if (note) onSelect(note);
+  return (
+    <Box
+      flex={{
+        'base': '1 0 100%',
+        'md': '1 0 100%',
+        'lg': '1 0 calc(50% - 12px)',
+        'xl': 'calc(33.333% - 16px)',
+        '2xl': '1 0 calc(25% - 24px)',
+      }}
+      gap='md'
+      maxW={{
+        'base': '100%',
+        'md': '100%',
+        'lg': 'calc(50% - 12px)',
+        'xl': 'calc(33.333% - 16px)',
+        '2xl': 'calc(25% - 16px)',
+      }}
+      h='fit-content'
+      p='md'
+      rounded='lg'
+      bg='brand.200'
+      overflow='hidden'
+      cursor='pointer'
+      onClick={() => {
+        if (note) onSelect(note);
 
-          onOpen();
-        }}
-      >
-        <Flex flexDir='column' justify='space-between' gap='md'>
-          <Box pos='relative' w='100%' mb='md'>
-            <Heading as='h1' minH='24px' mb='md' color='darken.300' fontSize='lg'>
-              {note?.title}
-            </Heading>
+        onOpen();
+      }}
+    >
+      <Flex flexDir='column' justify='space-between' gap='md'>
+        <Box pos='relative' w='100%' mb='md'>
+          <Heading as='h1' minH='24px' mb='md' color='darken.300' fontSize='lg'>
+            {note?.title}
+          </Heading>
+          <Box
+            maxH='320px'
+            color='darken.300'
+            listStylePosition='inside'
+            overflow='hidden'
+            dangerouslySetInnerHTML={createMarkup()}
+          />
+          <Box pos='absolute' top={0} right={0}>
+            {note && !note.pinned && pathname === '/' && (
+              <Box
+                cursor='pointer'
+                onClick={e => {
+                  e.stopPropagation();
+                  onPin && onPin();
+                }}
+              >
+                <MdOutlinePushPin fill='#414141' size={22} />
+              </Box>
+            )}
+            {note && note.pinned && pathname === '/' && (
+              <Box
+                cursor='pointer'
+                onClick={e => {
+                  e.stopPropagation();
+                  onUnpin && onUnpin();
+                }}
+              >
+                <MdPushPin fill='#414141' size={22} />
+              </Box>
+            )}
+          </Box>
+        </Box>
+        <Flex gap='12px'>
+          {onArchive && (
             <Box
-              maxH='320px'
-              color='darken.300'
-              listStylePosition='inside'
-              overflow='hidden'
-              dangerouslySetInnerHTML={createMarkup()}
-            />
-            <Box pos='absolute' top={0} right={0}>
-              {note && !note.pinned && pathname === '/' && (
-                <Box
-                  cursor='pointer'
-                  onClick={e => {
-                    e.stopPropagation();
-                    onPin && onPin();
-                  }}
-                >
-                  <MdOutlinePushPin fill='#414141' size={22} />
-                </Box>
-              )}
-              {note && note.pinned && pathname === '/' && (
-                <Box
-                  cursor='pointer'
-                  onClick={e => {
-                    e.stopPropagation();
-                    onUnpin && onUnpin();
-                  }}
-                >
-                  <MdPushPin fill='#414141' size={22} />
-                </Box>
+              cursor='pointer'
+              onClick={e => {
+                e.stopPropagation();
+                onArchive();
+              }}
+            >
+              <MdOutlineArchive fill='#414141' size={22} />
+            </Box>
+          )}
+          {onUnarchive && (
+            <Box
+              cursor='pointer'
+              onClick={e => {
+                e.stopPropagation();
+                onUnarchive();
+              }}
+            >
+              <MdArchive fill='#414141' size={22} />
+            </Box>
+          )}
+          {onRestore && (
+            <Box
+              cursor='pointer'
+              onClick={e => {
+                e.stopPropagation();
+                onRestore();
+              }}
+            >
+              <MdRestore fill='#414141' size={22} />
+            </Box>
+          )}
+          {onRemove && (
+            <Box
+              cursor='pointer'
+              onClick={e => {
+                e.stopPropagation();
+                onRemove();
+              }}
+            >
+              {pathname === '/trash' ? (
+                <MdDelete fill='#414141' size={22} />
+              ) : (
+                <MdOutlineDelete fill='#414141' size={22} />
               )}
             </Box>
-          </Box>
-          <Flex gap='12px'>
-            {onArchive && (
-              <Box
-                cursor='pointer'
-                onClick={e => {
-                  e.stopPropagation();
-                  onArchive();
-                }}
-              >
-                <MdOutlineArchive fill='#414141' size={22} />
-              </Box>
-            )}
-            {onUnarchive && (
-              <Box
-                cursor='pointer'
-                onClick={e => {
-                  e.stopPropagation();
-                  onUnarchive();
-                }}
-              >
-                <MdArchive fill='#414141' size={22} />
-              </Box>
-            )}
-            {onRestore && (
-              <Box
-                cursor='pointer'
-                onClick={e => {
-                  e.stopPropagation();
-                  onRestore();
-                }}
-              >
-                <MdRestore fill='#414141' size={22} />
-              </Box>
-            )}
-            {onRemove && (
-              <Box
-                cursor='pointer'
-                onClick={e => {
-                  e.stopPropagation();
-                  onRemove();
-                }}
-              >
-                {pathname === '/trash' ? (
-                  <MdDelete fill='#414141' size={22} />
-                ) : (
-                  <MdOutlineDelete fill='#414141' size={22} />
-                )}
-              </Box>
-            )}
-          </Flex>
+          )}
         </Flex>
-      </Box>
-    );
-  },
-);
+      </Flex>
+    </Box>
+  );
+};
 
 export default NoteItem;
 

@@ -1,8 +1,8 @@
 // packages
-import React, { memo } from 'react';
+import React from 'react';
 import { Box, Text } from '@chakra-ui/react';
 
-const Info: React.FC = memo(() => {
+const Info: React.FC = () => {
   return (
     <Box p='md'>
       <Text textAlign='center' color='darken.300' fontSize={12} userSelect='none'>
@@ -13,6 +13,6 @@ const Info: React.FC = memo(() => {
       </Text>
     </Box>
   );
-});
+};
 
 export default Info;
